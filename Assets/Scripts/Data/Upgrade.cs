@@ -2,17 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrade : MonoBehaviour
+public class Upgrade
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private string id;
+    private string name;
+    private string shortName;
+    private Rarity rarity;
+    private int appearChance;
+    private UpgradeType upgradeType;
+    private float upgradeValue;
 
-    // Update is called once per frame
-    void Update()
+    public Upgrade(string id, string name, string shortName, Rarity rarity, int appearChance, UpgradeType upgradeType, float upgradeValue)
     {
-        
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+        this.rarity = rarity;
+        this.appearChance = appearChance;
+        this.upgradeType = upgradeType;
+        this.upgradeValue = upgradeValue;
     }
+}
+
+public enum Rarity
+{
+    COMMON,
+    RARE
+}
+
+public enum UpgradeType
+{
+    SPEED,
+    LINE,
+    DEF_MULT,
+    TIME_MULT
 }

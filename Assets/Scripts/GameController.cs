@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
     private bool isGameStart = false;
 
     // which level I want to play
-    public int levelId;
+    // public string levelId;
 
     // Start is called before the first frame update
     void Start()
@@ -61,9 +61,9 @@ public class GameController : MonoBehaviour
         player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
         player.GetComponent<PlayerScript>().Intialize(mainCamera, this);
 
-        Level currLevel = Game.GetGameData().GetLevelByRefId(levelId);
+        Level currLevel = Game.GetGameData().GetLevelByRefId("1");
 
-        currTimer = Game.GetGameData().GetLevelByRefId(levelId).GetMaxTime();
+        currTimer = Game.GetGameData().GetLevelByRefId("1").GetMaxTime();
 
         spawnMin = currLevel.GetSpawnMin();
         spawnMax = currLevel.GetSpawnMax();

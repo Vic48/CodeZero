@@ -49,7 +49,7 @@ public class DataManager : MonoBehaviour
         List<Level> levelList = new List<Level>();
         foreach (RefLevel refLevel in serverData.RefLevel)
         {
-            levelList.Add(newLevel(refLevel.id, refLevel.maxTime, refLevel.spawnInterval, refLevel.SpawnMin, refLevel.spawnMax, refLevel.upgradeInterval,
+            levelList.Add(new Level(refLevel.id, refLevel.levelName,refLevel.maxTime, refLevel.spawnInterval, refLevel.spawnMin, refLevel.spawnMax, refLevel.upgradeInterval,
                 refLevel.upgradeCount, refLevel.startMinSize, refLevel.minSizeUpFrequency, refLevel.sizeUpValue, refLevel.startMaxSizeInterval, refLevel.maxSizeUpFrequency,
                 refLevel.startMinSpeed, refLevel.minSpeedUpFrequency, refLevel.startMaxSpeed, refLevel.maxSpeedUpFrequency, refLevel.speedUpValue));
         }
