@@ -39,8 +39,20 @@ public class GameController : MonoBehaviour
 
     private Vector2 viewportZero, viewportOne;
 
+    private bool isGameStart = false;
+
+    // which level I want to play
+    public int levelId;
+
     // Start is called before the first frame update
     void Start()
+    {
+        // GetComponent only works if the two scripts are on the same object
+        // StartGame to only start running after I have gotten my data
+        this.GetComponent<DataManager>().GetData(StartGame); // this works only if the function has no input parameters
+    }
+
+    public void StartGame()
     {
         viewportZero = mainCamera.ViewportToWorldPoint(Vector2.zero);
         viewportOne = mainCamera.ViewportToWorldPoint(Vector2.one);
@@ -49,12 +61,21 @@ public class GameController : MonoBehaviour
         player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
         player.GetComponent<PlayerScript>().Intialize(mainCamera, this);
 
-        currTimer = timerMax;
+        Level currLevel = Game.GetGameData().GetLevelByRefId(levelId);
+
+        currTimer = Game.GetGameData().GetLevelByRefId(levelId).GetMaxTime();
+
+        spawnMin = currLevel.GetSpawnMin();
+        spawnMax = currLevel.GetSpawnMax();
+
+        isGameStart = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isGameStart) return;
+
         spawnTimer += Time.deltaTime;
         currTimer -= Time.deltaTime;
 
