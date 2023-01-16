@@ -231,6 +231,7 @@ MonoBehaviour:
   playerSpeed: 5
   dashDistance: 1
   dashCooldown: 0.3
+  damageCooldown: 0.5
   dashCircle: {fileID: 2514957758744252657}
   dashLine: {fileID: 2514957757904285041}
 --- !u!58 &2514957758329961634

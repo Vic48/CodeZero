@@ -55,6 +55,34 @@ public class GameController : MonoBehaviour
     public List<GameObject> activeUpgrades = new List<GameObject>();
     private int upgradeIndex = 0;
 
+    //object pooling
+    private List<GameObject> enemyObjectPool = new List<GameObject>();
+
+    public GameObject GetEnemyObject(string aObjName, System.Action<GameObject> onLoaded)
+    {
+        // create an empty object to return
+        GameObject emptyObj = null;
+
+        if (aObjName.Contains ("Enemy_") && enemyObjectPool.Count != 0)
+        {
+            emptyObj = enemyObjectPool[0];
+            //set active == take the item out 
+            onLoaded.Invoke(emptyObj);
+            // remove the item after its being taken out
+            enemyObjectPool.Remove(emptyObj);
+        }
+        else
+        {
+            //spawn enemy/initialize
+            emptyObj = Instantiate(enemyObj, GetRandomOnScreenPos(), Quaternion.identity, this.transform) as GameObject;
+            emptyObj.name = "Enemy_" + enemyIndex;
+            //set active
+            onLoaded?.Invoke(emptyObj);
+        }
+        emptyObj.SetActive(true);
+        return emptyObj;
+    }
+
     private Vector2 viewportZero, viewportOne;
 
     private bool isGameStart = false;
@@ -105,7 +133,13 @@ public class GameController : MonoBehaviour
 
             Vector2 randomPos = GetRandomOnScreenPos();
 
-            GameObject enemy = Instantiate(enemyObj, randomPos, Quaternion.identity, this.transform) as GameObject;
+            GameObject enemy = GetEnemyObject("Enemy_", (enemyObj) =>
+            {
+                enemyObj.name = "Enemy_" + enemyIndex;
+                enemyObj.transform.position = randomPos;
+            });
+
+            //GameObject enemy = Instantiate(enemyObj, randomPos, Quaternion.identity, this.transform) as GameObject;
 
             //each enemy has diff number
             enemy.name = "Enemy_" + enemyIndex;
@@ -161,15 +195,7 @@ public class GameController : MonoBehaviour
             }
             
             upgrade.GetComponentInChildren<TextMesh>().text = Game.GetGameData().GetUpgradeList()[loopNum].GetShortName();
-            //digit = Random.Range(0, 70);
-            //if (digit < 9)
-            //{
-            //    upgrade.GetComponentInChildren<TextMesh>().text = "ds2";
-            //}
-            //else if(digit < )
-            //{
-
-            //}
+      
             //each enemy has diff number
             upgrade.name = "Upgrade_" + Game.GetGameData().GetUpgradeList()[loopNum].GetName() + "_" + upgradeIndex;
 
