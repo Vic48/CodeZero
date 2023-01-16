@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour
 
     private bool isGameStart = false;
 
+    public int digit;
     // which level I want to play
     // public string levelId;
 
@@ -136,16 +137,46 @@ public class GameController : MonoBehaviour
 
             GameObject upgrade = Instantiate(upgradeObj, randomPos, Quaternion.identity, this.transform) as GameObject;
 
-            // TODO add possibility of the upgrade type
-            upgrade.GetComponentInChildren<TextMesh>().text = "ds2";
+            // TODO: add possibility of the upgrade type
+            //upgrade.GetComponentInChildren<TextMesh>().text = "ds2";
+            digit = 0;
+            foreach(Upgrade a in Game.GetGameData().GetUpgradeList())
+            {
+                digit += a.GetAppearChance();
+            }
+            bool loopCheck = true;
+            int generatedNum = Random.Range(0, digit + 1);
+            int loopNum = 0;
+            while (loopCheck)
+            {
+                generatedNum -= Game.GetGameData().GetUpgradeList()[upgradeIndex].GetAppearChance();
+                if (generatedNum <= 0)
+                {
+                    loopCheck = false;
+                }
+                else
+                {
+                    loopNum += 1;
+                }
+            }
+            
+            upgrade.GetComponentInChildren<TextMesh>().text = Game.GetGameData().GetUpgradeList()[loopNum].GetShortName();
+            //digit = Random.Range(0, 70);
+            //if (digit < 9)
+            //{
+            //    upgrade.GetComponentInChildren<TextMesh>().text = "ds2";
+            //}
+            //else if(digit < )
+            //{
 
+            //}
             //each enemy has diff number
-            upgrade.name = "Upgrade_" + upgradeIndex;
+            upgrade.name = "Upgrade_" + Game.GetGameData().GetUpgradeList()[loopNum].GetName() + "_" + upgradeIndex;
 
             int randSize = Random.Range(0, upgradeSizeMaxInterval + 1);
 
-            float upgradeSize = upgradeSizeMin + ((float)randSize * upgradeInterval);
-            upgrade.transform.localScale = new Vector2(upgradeSize, upgradeSize);
+            float upgradeSize = upgradeSizeMin + ((float)randSize * upgradeSizeInterval);
+            upgrade.transform.localScale = new Vector2(upgradeSize, upgradeSize); 
 
             //initializing data in EnemyScript
             upgrade.GetComponent<UpgradeScript>().Initialize(this, timerAdd, timerDmg, upgradeLifetime, upgradeSize);

@@ -23,11 +23,11 @@ public class Upgrade
         this.upgradeValue = upgradeValue;
     }
 
-    public string GetId => id;
-    public string GetName => name;
-    public string GetShortName => shortName;
-    public Rarity GetRarity => rarity;
-    public int GetAppearChance => appearChance;
+    public string GetId() => id;
+    public string GetName() => name;
+    public string GetShortName() => shortName;
+    public Rarity GetRarity() => rarity;
+    public int GetAppearChance() => appearChance;
     public UpgradeType GetUpgradeType() => upgradeType;
     public float GetUpgradeValue() => upgradeValue;
 }

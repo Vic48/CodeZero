@@ -162,7 +162,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeObj
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1201388449226727844, guid: 7f7d32fe6a4f82b47b4375e827dcdfb5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7f7d32fe6a4f82b47b4375e827dcdfb5, type: 3}
 --- !u!1 &2001241994236858063 stripped
 GameObject:
