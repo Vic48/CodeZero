@@ -65,7 +65,7 @@ public class Level
 
     public float GetStartMinSize() => startMinSize;
 
-    public float GetMinSizeUpFrequency() => minSpeedUpFrequency;
+    public float GetMinSizeUpFrequency() => minSizeUpFrequency;
 
     public float GetSizeUpValue() => sizeUpValue;
 

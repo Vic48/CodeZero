@@ -22,6 +22,14 @@ public class Upgrade
         this.upgradeType = upgradeType;
         this.upgradeValue = upgradeValue;
     }
+
+    public string GetId => id;
+    public string GetName => name;
+    public string GetShortName => shortName;
+    public Rarity GetRarity => rarity;
+    public int GetAppearChance => appearChance;
+    public UpgradeType GetUpgradeType() => upgradeType;
+    public float GetUpgradeValue() => upgradeValue;
 }
 
 public enum Rarity
