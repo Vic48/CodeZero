@@ -90,6 +90,7 @@ public class GameController : MonoBehaviour
     }
 
     private Vector2 viewportZero, viewportOne;
+    private Vector3 screenBoundary;
 
     private bool isGameStart = false;
 
@@ -105,6 +106,9 @@ public class GameController : MonoBehaviour
         this.GetComponent<DataManager>().GetData(StartGame); // this works only if the function has no input parameters
 
         gameOver.SetActive(false);
+
+        mainCamera = Camera.main;
+        screenBoundary = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
     }
 
     public void StartGame()
@@ -228,6 +232,7 @@ public class GameController : MonoBehaviour
         }
 
         UpdateTimerBar();
+
     }
 
     private Vector2 GetRandomOnScreenPos()

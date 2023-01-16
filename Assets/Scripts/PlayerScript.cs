@@ -28,6 +28,11 @@ public class PlayerScript : MonoBehaviour
     //gives player cooldown so they dont take damage continuously
     private float damageTimer = 0;
 
+    //public GameObject target;
+    //public GameObject arrowPointer;
+
+    //Renderer rd;
+
     // Start is called before the first frame update
     public void Intialize(Camera mainCamera, GameController gameController)
     {
@@ -35,6 +40,11 @@ public class PlayerScript : MonoBehaviour
         this.mainCamera = mainCamera;
 
         this.gameController = gameController;
+    }
+
+    private void Start()
+    {
+        //rd = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -133,6 +143,31 @@ public class PlayerScript : MonoBehaviour
             isDashMode = false;
         }
         UpdateDashDisplay();
+
+        //tracking player
+        //if (rd.isVisible == false)
+        //{
+        //    if(arrowPointer.activeSelf == false)
+        //    {
+        //        arrowPointer.SetActive(true);
+        //    }
+
+        //    Vector2 direction = target.transform.position - transform.position;
+
+        //    RaycastHit2D ray = Physics2D.Raycast(transform.position, direction);
+
+        //    if (ray.collider != null)
+        //    {
+        //        arrowPointer.transform.position = ray.point;
+        //    }
+        //}
+        //else
+        //{
+        //    if (arrowPointer.activeSelf == true)
+        //    {
+        //        arrowPointer.SetActive(false);
+        //    }
+        //}
 
     }
 
