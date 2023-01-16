@@ -18,10 +18,10 @@ public class GameController : MonoBehaviour
     public Image timerBar;
 
     [Header("Upgrade")]
-    public float upgradeInterval = 2f;
+    public float upgradeInterval = 8f;
     public int upgradeCount = 3;
     public int upgradeSpawnMin = 3;
-    public int upgradeSpawnMax = 10;
+    public int upgradeSpawnMax = 5;
     public float upgradeLifetime = 5f; //DO NOT CHANGE
     public float upgradeSizeMin = 0.7f;
     public int upgradeSizeMaxInterval = 2;
@@ -47,7 +47,11 @@ public class GameController : MonoBehaviour
     //timer that decreases over time - not actual gameplay time
     private float currTimer = 0;
 
-    //create another timer to keep track of gameplay time so can increase enemy size and movement speed
+    //keep track of gameplay time so can increase enemy size and movement speed
+    private float gameTime = 0;
+
+    //game over panel
+    public GameObject gameOver;
 
     private GameObject player;
 
@@ -99,6 +103,8 @@ public class GameController : MonoBehaviour
         // GetComponent only works if the two scripts are on the same object
         // StartGame to only start running after I have gotten my data
         this.GetComponent<DataManager>().GetData(StartGame); // this works only if the function has no input parameters
+
+        gameOver.SetActive(false);
     }
 
     public void StartGame()
@@ -128,6 +134,7 @@ public class GameController : MonoBehaviour
         spawnTimer += Time.deltaTime;
         currTimer -= Time.deltaTime;
 
+        // enemy
         if (activeEnemyList.Count < spawnMin || spawnTimer > spawnInterval && activeEnemyList.Count < spawnMax)
         {
             //spawn enemy
@@ -257,7 +264,10 @@ public class GameController : MonoBehaviour
         timerBar.fillAmount = currTimer / timerMax;
 
         //if timerBar = 0, show game over screen
-
+        if (timerBar.fillAmount == 0)
+        {
+            gameOver.SetActive(true);
+        }
     }
 
     public void RemoveEnemy(GameObject enemyGO)
