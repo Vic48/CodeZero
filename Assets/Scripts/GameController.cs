@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
     private List<GameObject> activeEnemyList = new List<GameObject>();
     private int enemyIndex = 0;
 
-    private List<GameObject> activeUpgrades = new List<GameObject>();
+    public List<GameObject> activeUpgrades = new List<GameObject>();
     private int upgradeIndex = 0;
 
     private Vector2 viewportZero, viewportOne;
@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
         // upgrades
         upgradeSpawnTimer += Time.deltaTime;
 
-        if (activeUpgrades.Count < upgradeSpawnMin || upgradeSpawnTimer > upgradeInterval && activeUpgrades.Count < upgradeSpawnMax)
+        if (activeUpgrades.Count < upgradeSpawnMin || ((upgradeSpawnTimer > upgradeInterval) && (activeUpgrades.Count < upgradeSpawnMax)))
         {
             //spawn upgrade
             upgradeIndex++;
@@ -137,19 +137,19 @@ public class GameController : MonoBehaviour
 
             GameObject upgrade = Instantiate(upgradeObj, randomPos, Quaternion.identity, this.transform) as GameObject;
 
-            // TODO: add possibility of the upgrade type
-            //upgrade.GetComponentInChildren<TextMesh>().text = "ds2";
+            
             digit = 0;
             foreach(Upgrade a in Game.GetGameData().GetUpgradeList())
             {
                 digit += a.GetAppearChance();
             }
+
             bool loopCheck = true;
             int generatedNum = Random.Range(0, digit + 1);
             int loopNum = 0;
             while (loopCheck)
             {
-                generatedNum -= Game.GetGameData().GetUpgradeList()[upgradeIndex].GetAppearChance();
+                generatedNum -= Game.GetGameData().GetUpgradeList()[loopNum].GetAppearChance();
                 if (generatedNum <= 0)
                 {
                     loopCheck = false;
