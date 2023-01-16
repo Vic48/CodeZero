@@ -9,13 +9,28 @@ public class GameController : MonoBehaviour
     public Camera mainCamera;
     public Object playerObj;
     public Object enemyObj;
+    public Object upgradeObj;
 
     [Header("Game")]
     public float timerMax = 60f;
     public float timerAdd = 5f;
     public float timerDmg = 1f;
     public Image timerBar;
-    
+
+    [Header("Upgrade")]
+    public float upgradeInterval = 2f;
+    public int upgradeCount = 3;
+    public int upgradeSpawnMin = 3;
+    public int upgradeSpawnMax = 10;
+    public float upgradeLifetime = 10f;
+    public float upgradeSizeMin = 0.7f;
+    public int upgradeSizeMaxInterval = 2;
+    public float upgradeSizeInterval = 0.2f;
+
+    private float upgradeSpawnTimer = 0;
+
+
+
     [Header("Enemy")]
     public float spawnInterval = 2f;
     public int spawnMin = 3;
@@ -36,6 +51,9 @@ public class GameController : MonoBehaviour
 
     private List<GameObject> activeEnemyList = new List<GameObject>();
     private int enemyIndex = 0;
+
+    private List<GameObject> activeUpgrades = new List<GameObject>();
+    private int upgradeIndex = 0;
 
     private Vector2 viewportZero, viewportOne;
 
@@ -106,6 +124,39 @@ public class GameController : MonoBehaviour
             spawnTimer = 0;
         }
 
+        // upgrades
+        upgradeSpawnTimer += Time.deltaTime;
+
+        if (activeUpgrades.Count < upgradeSpawnMin || upgradeSpawnTimer > upgradeInterval && activeUpgrades.Count < upgradeSpawnMax)
+        {
+            //spawn upgrade
+            upgradeIndex++;
+
+            Vector2 randomPos = GetRandomOnScreenPos();
+
+            GameObject upgrade = Instantiate(upgradeObj, randomPos, Quaternion.identity, this.transform) as GameObject;
+
+            // TODO add possibility of the upgrade type
+            upgrade.GetComponentInChildren<TextMesh>().text = "ds2";
+
+            //each enemy has diff number
+            upgrade.name = "Upgrade_" + upgradeIndex;
+
+            int randSize = Random.Range(0, upgradeSizeMaxInterval + 1);
+
+            float upgradeSize = upgradeSizeMin + ((float)randSize * upgradeInterval);
+            upgrade.transform.localScale = new Vector2(upgradeSize, upgradeSize);
+
+            //initializing data in EnemyScript
+            upgrade.GetComponent<UpgradeScript>().Initialize(this, timerAdd, timerDmg, upgradeLifetime, upgradeSize);
+
+            //add active enemy to list
+            activeUpgrades.Add(upgrade);
+
+            //reset timer
+            spawnTimer = 0;
+        }
+
         UpdateTimerBar();
     }
 
@@ -149,5 +200,10 @@ public class GameController : MonoBehaviour
     public void RemoveEnemy(GameObject enemyGO)
     {
         activeEnemyList.Remove(enemyGO);
+    }
+
+    public void RemoveUpgrade(GameObject upgradeGO)
+    {
+        activeUpgrades.Remove(upgradeGO);
     }
 }

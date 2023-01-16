@@ -156,10 +156,19 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   playerObj: {fileID: 2514957758329961689, guid: d9d8cb8733062f3448ae96ea9a05c472, type: 3}
   enemyObj: {fileID: 1201388449226727847, guid: 7f7d32fe6a4f82b47b4375e827dcdfb5, type: 3}
+  upgradeObj: {fileID: 2001241994236858063, guid: 7cfc82b78bb04a345a24adba544886af, type: 3}
   timerMax: 60
   timerAdd: 5
   timerDmg: 1
   timerBar: {fileID: 1905398155}
+  upgradeInterval: 2
+  upgradeCount: 3
+  upgradeSpawnMin: 3
+  upgradeSpawnMax: 10
+  upgradeLifetime: 10
+  upgradeSizeMin: 0.7
+  upgradeSizeMaxInterval: 2
+  upgradeSizeInterval: 0.2
   spawnInterval: 2
   spawnMin: 3
   spawnMax: 10
