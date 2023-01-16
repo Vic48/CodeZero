@@ -16,25 +16,46 @@ public class EnemyScript : MonoBehaviour
     private float enemySize;
 
     //add enemySpeed and initialize in GameController
+    private float enemySpeed;
+
+    //timer for enemy to change direction
+    private float timeLeft;
+    private Vector2 direction;
+    public float addTime = 2f; //add back time to timer
+
+    public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         lifetime -= Time.deltaTime;
+        timeLeft -= Time.deltaTime;
 
         if (lifetime <= 0)
         {
             DestroyEnemy();
         }
+
+        if (timeLeft <= 0)
+        {
+            direction = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+            timeLeft += addTime;
+        }
+
     }
 
-    public void Initialize(GameController gameController, float timerAdd, float timerDmg, float lifetime, float enemySize)
+    private void FixedUpdate()
+    {
+        rb.AddForce(direction * enemySpeed);
+    }
+
+    public void Initialize(GameController gameController, float timerAdd, float timerDmg, float lifetime, float enemySize, float enemySpeed)
     {
         this.gameController = gameController;
 
@@ -43,6 +64,7 @@ public class EnemyScript : MonoBehaviour
         this.lifetime = lifetime;
 
         this.enemySize = enemySize;
+        this.enemySpeed = enemySpeed;
     }
 
     public void DestroyEnemy()

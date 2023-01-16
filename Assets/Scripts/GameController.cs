@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     public int upgradeCount = 3;
     public int upgradeSpawnMin = 3;
     public int upgradeSpawnMax = 10;
-    public float upgradeLifetime = 10f;
+    public float upgradeLifetime = 5f; //DO NOT CHANGE
     public float upgradeSizeMin = 0.7f;
     public int upgradeSizeMaxInterval = 2;
     public float upgradeSizeInterval = 0.2f;
@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour
     public float enemySizeMin = 0.7f;
     public int enemySizeMaxInterval = 2; //0.7+0.2+0.2=1.1 biggest circle size possible
     public float sizeInterval = 0.2f;
+    public float enemyMinSpeed = 0.8f;
+    public float enemyMaxSpeed = 1.6f;
 
     private float spawnTimer = 0;
 
@@ -89,7 +91,7 @@ public class GameController : MonoBehaviour
 
     public int digit;
     // which level I want to play
-    // public string levelId;
+    public string levelId;
 
     // Start is called before the first frame update
     void Start()
@@ -108,9 +110,9 @@ public class GameController : MonoBehaviour
         player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
         player.GetComponent<PlayerScript>().Intialize(mainCamera, this);
 
-        Level currLevel = Game.GetGameData().GetLevelByRefId("1");
+        Level currLevel = Game.GetGameData().GetLevelByRefId(levelId);
 
-        currTimer = Game.GetGameData().GetLevelByRefId("1").GetMaxTime();
+        currTimer = Game.GetGameData().GetLevelByRefId(levelId).GetMaxTime();
 
         spawnMin = currLevel.GetSpawnMin();
         spawnMax = currLevel.GetSpawnMax();
@@ -149,8 +151,10 @@ public class GameController : MonoBehaviour
             float enemySize = enemySizeMin + ((float)randSize * sizeInterval);
             enemy.transform.localScale = new Vector2(enemySize, enemySize);
 
+            float enemySpeed = enemyMinSpeed;
+
             //initializing data in EnemyScript
-            enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize);
+            enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemySpeed);
 
             //add active enemy to list
             activeEnemyList.Add(enemy);
@@ -196,18 +200,20 @@ public class GameController : MonoBehaviour
             
             upgrade.GetComponentInChildren<TextMesh>().text = Game.GetGameData().GetUpgradeList()[loopNum].GetShortName();
       
-            //each enemy has diff number
+            //each upgrade has diff number
             upgrade.name = "Upgrade_" + Game.GetGameData().GetUpgradeList()[loopNum].GetName() + "_" + upgradeIndex;
 
             int randSize = Random.Range(0, upgradeSizeMaxInterval + 1);
 
             float upgradeSize = upgradeSizeMin + ((float)randSize * upgradeSizeInterval);
-            upgrade.transform.localScale = new Vector2(upgradeSize, upgradeSize); 
+            upgrade.transform.localScale = new Vector2(upgradeSize, upgradeSize);
 
-            //initializing data in EnemyScript
-            upgrade.GetComponent<UpgradeScript>().Initialize(this, timerAdd, timerDmg, upgradeLifetime, upgradeSize);
+            float upgradeSpeed = enemyMinSpeed;
 
-            //add active enemy to list
+            //initializing data in UpgradeScript
+            upgrade.GetComponent<UpgradeScript>().Initialize(this, timerAdd, timerDmg, upgradeLifetime, upgradeSize, upgradeSpeed);
+
+            //add active upgrade to list
             activeUpgrades.Add(upgrade);
 
             //reset timer

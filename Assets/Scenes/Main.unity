@@ -176,6 +176,7 @@ MonoBehaviour:
   enemySizeMin: 0.7
   enemySizeMaxInterval: 2
   sizeInterval: 0.2
+  levelId: 1
 --- !u!4 &388792272
 Transform:
   m_ObjectHideFlags: 0

@@ -78,7 +78,21 @@ public class PlayerScript : MonoBehaviour
                 if (hit.collider.GetComponent<UpgradeScript>() != null)
                 {
                     //handle upgrades here
+                    UpgradeScript upgradeScript = hit.collider.GetComponent<UpgradeScript>();
 
+                    if (upgradeScript.GetUpgradeSize() <= dashDistance)
+                    {
+                        //add upgrade to player
+
+                        upgradeScript.DestroyUpgrade();
+                    }
+                    else
+                    {
+                        //take damage
+                        gameController.MinusTimer(upgradeScript.GetTimerDmg());
+
+                        damageTimer = damageCooldown;
+                    }
                 }
                     //if hit enemy
                 if (hit.collider.GetComponent<EnemyScript>() != null)
@@ -146,6 +160,15 @@ public class PlayerScript : MonoBehaviour
         {
             EnemyScript enemyScript = collision.GetComponent<EnemyScript>();
             gameController.MinusTimer(enemyScript.GetTimerDmg());
+
+            damageTimer = damageCooldown;
+        }
+
+        //if timer = 0 and touching upgrade
+        if (damageTimer <= 0 && collision.GetComponent<UpgradeScript>() != null)
+        {
+            UpgradeScript upgradeScript = collision.GetComponent<UpgradeScript>();
+            gameController.MinusTimer(upgradeScript.GetTimerDmg());
 
             damageTimer = damageCooldown;
         }
