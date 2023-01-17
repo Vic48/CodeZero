@@ -18,13 +18,15 @@ public class Indicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //tracking player
+        //tracking player - not working
         if (rd.isVisible == false) //if player is outside of camera
         {
+            Debug.Log("out of frame");
             if (indicator.activeSelf == false)
             {
                 //turn on indicator
                 indicator.SetActive(true);
+                Debug.Log("indicator on");
             }
 
             Vector2 direction = target.transform.position - transform.position;
@@ -41,6 +43,7 @@ public class Indicator : MonoBehaviour
             if (indicator.activeSelf == true)
             {
                 indicator.SetActive(false);
+                Debug.Log("indicator off");
             }
         }
     }
