@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public float timerAdd = 5f;
     public float timerDmg = 1f;
     public Image timerBar;
+    public Text timerCountDown;
 
     [Header("Upgrade")]
     public float upgradeInterval = 8f;
@@ -28,8 +29,6 @@ public class GameController : MonoBehaviour
     public float upgradeSizeInterval = 0.2f;
 
     private float upgradeSpawnTimer = 0;
-
-
 
     [Header("Enemy")]
     public float spawnInterval = 2f;
@@ -50,8 +49,11 @@ public class GameController : MonoBehaviour
     //keep track of gameplay time so can increase enemy size and movement speed
     private float gameTime = 0;
 
-    //game over panel
-    public GameObject gameOver;
+    [Header("HUD")]
+    public int circlesDestroyed;
+    public Text circle_gone;
+    public GameObject gameOver; //game over panel
+    public Text levelNum;
 
     private GameObject player;
 
@@ -90,7 +92,7 @@ public class GameController : MonoBehaviour
     }
 
     private Vector2 viewportZero, viewportOne;
-    private Vector3 screenBoundary;
+    //private Vector3 screenBoundary;
 
     private bool isGameStart = false;
 
@@ -108,7 +110,7 @@ public class GameController : MonoBehaviour
         gameOver.SetActive(false);
 
         mainCamera = Camera.main;
-        screenBoundary = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
+        //screenBoundary = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
     }
 
     public void StartGame()
@@ -128,6 +130,8 @@ public class GameController : MonoBehaviour
         spawnMax = currLevel.GetSpawnMax();
 
         isGameStart = true;
+
+        levelNum.text = currLevel.GetId();
     }
 
     // Update is called once per frame
@@ -138,7 +142,17 @@ public class GameController : MonoBehaviour
         spawnTimer += Time.deltaTime;
         currTimer -= Time.deltaTime;
 
-        // enemy
+        //-------------------   HUD -----------------
+        // timer text countdown
+        currTimer = Mathf.Clamp(currTimer, 0, timerMax);
+        int seconds = Mathf.FloorToInt(currTimer % 60F);
+        timerCountDown.text = seconds.ToString("0");
+
+        //circles destroyed
+        circle_gone.text = circlesDestroyed.ToString("0");
+
+        //-------------------   ENEMY -----------------
+        
         if (activeEnemyList.Count < spawnMin || spawnTimer > spawnInterval && activeEnemyList.Count < spawnMax)
         {
             //spawn enemy
@@ -174,7 +188,8 @@ public class GameController : MonoBehaviour
             spawnTimer = 0;
         }
 
-        // upgrades
+        //-------------------   UPGRADES -----------------
+
         upgradeSpawnTimer += Time.deltaTime;
 
         if (activeUpgrades.Count < upgradeSpawnMin || ((upgradeSpawnTimer > upgradeInterval) && (activeUpgrades.Count < upgradeSpawnMax)))
