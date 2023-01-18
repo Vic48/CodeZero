@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +16,12 @@ public class GameController : MonoBehaviour
     public float timerMax = 60f;
     public float timerAdd = 5f;
     public float timerDmg = 1f;
+
+    [Header("Timer")]
     public Image timerBar;
     public Text timerCountDown;
+    public float elaspedTime = 0f;
+    public Color PoposedColor;
 
     [Header("Upgrade")]
     public float upgradeInterval = 8f;
@@ -67,7 +72,7 @@ public class GameController : MonoBehaviour
     public List<GameObject> activeUpgrades = new List<GameObject>();
     private int upgradeIndex = 0;
 
-    //object pooling
+    //-------------------   Object Pooling -----------------
     private List<GameObject> enemyObjectPool = new List<GameObject>();
 
     public GameObject GetEnemyObject(string aObjName, System.Action<GameObject> onLoaded)
@@ -75,7 +80,7 @@ public class GameController : MonoBehaviour
         // create an empty object to return
         GameObject emptyObj = null;
 
-        if (aObjName.Contains ("Enemy_") && enemyObjectPool.Count != 0)
+        if (enemyObjectPool.Count != 0)
         {
             emptyObj = enemyObjectPool[0];
             //set active == take the item out 
@@ -138,6 +143,8 @@ public class GameController : MonoBehaviour
 
         spawnMin = currLevel.GetSpawnMin();
         spawnMax = currLevel.GetSpawnMax();
+
+        PoposedColor = Color.white;
 
         isGameStart = true;
 
@@ -258,7 +265,16 @@ public class GameController : MonoBehaviour
 
         UpdateTimerBar();
 
+        elaspedTime= elaspedTime+Time.deltaTime;
+
+        if (elaspedTime >= 2f)
+        {
+            elaspedTime = 0;
+            PoposedColor = Color.white;
+        }
+
     }
+
 
     private Vector2 GetRandomOnScreenPos()
     {
@@ -275,7 +291,7 @@ public class GameController : MonoBehaviour
 
         //fix timer so it doesnt go negative/exceed timerMax
         currTimer = Mathf.Clamp(currTimer, 0, timerMax);
-
+        PoposedColor = Color.green;
         Color color = new Color32(215, 204, 179, 255);
         UpdateTimerBar();
     }
@@ -285,16 +301,14 @@ public class GameController : MonoBehaviour
         currTimer -= aValue;
         //fix timer so it doesnt go negative/exceed timerMax
         currTimer = Mathf.Clamp(currTimer, 0, timerMax);
-
-        Color color = new Color32(215, 204, 179, 255);
-        
+        PoposedColor = Color.red;
         UpdateTimerBar();
     }
 
     public void UpdateTimerBar()
     {
         timerBar.fillAmount = currTimer / timerMax;
-
+        timerBar.color = Color.Lerp(timerBar.color,PoposedColor, 1f);
         //if timerBar = 0, show game over screen
         if (timerBar.fillAmount == 0)
         {

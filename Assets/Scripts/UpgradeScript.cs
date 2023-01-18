@@ -113,7 +113,7 @@ public class UpgradeScript : MonoBehaviour
     public void PlayerUpgrade()
     {
         PlayerScript playerscript = Player.GetComponent<PlayerScript>();
-        //if-else or use switch case to select the upgrade.
+        //TODO: if-else or use switch case to select the upgrade.
     }
 
     public void Initialize(GameController gameController, float timerAdd, float timerDmg, float lifetime, float upgradeSize, float upgradeSpeed)
