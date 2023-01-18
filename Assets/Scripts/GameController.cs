@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour
     public float enemyMinSpeed = 0.8f;
     public float enemyMaxSpeed = 1.6f;
 
+    public int enemyPoolSize = 8;
     private float spawnTimer = 0;
 
     //timer that decreases over time - not actual gameplay time
@@ -82,22 +83,33 @@ public class GameController : MonoBehaviour
 
         if (enemyObjectPool.Count != 0)
         {
-            emptyObj = enemyObjectPool[0];
-            //set active == take the item out 
-            onLoaded.Invoke(emptyObj);
-            // remove the item after its being taken out
-            enemyObjectPool.Remove(emptyObj);
+            for (int i = 0; i < enemyObjectPool.Count; i++)
+            {
+                // if the i in the pool is not active in hierarchy
+                if (!enemyObjectPool[i].activeInHierarchy)
+                {
+                    emptyObj = enemyObjectPool[i];
+
+                    //ADD in 
+                    activeEnemyList.Add(emptyObj);
+                    onLoaded.Invoke(emptyObj);
+                    // Set active
+                    emptyObj.SetActive(true);
+                    return emptyObj;
+                }
+            }
         }
-        else
-        {
-            //spawn enemy/initialize
-            emptyObj = Instantiate(enemyObj, GetRandomOnScreenPos(), Quaternion.identity, this.transform) as GameObject;
-            emptyObj.name = "Enemy_" + enemyIndex;
-            //set active
-            onLoaded?.Invoke(emptyObj);
-        }
-        emptyObj.SetActive(true);
         return emptyObj;
+        //else
+        //{
+        //    //spawn enemy/initialize
+        //    emptyObj = Instantiate(enemyObj, GetRandomOnScreenPos(), Quaternion.identity, this.transform) as GameObject;
+        //    emptyObj.name = "Enemy_" + enemyIndex;
+        //    //set active
+        //    onLoaded?.Invoke(emptyObj);
+        //}
+        //emptyObj.SetActive(true);
+        //return emptyObj;
     }
 
     public void TakeAwayEnemy(GameObject emptyObj)
@@ -105,7 +117,7 @@ public class GameController : MonoBehaviour
         // remove the emptyObj from enemy list
         activeEnemyList.Remove(emptyObj);
         //add to the object pool
-        enemyObjectPool.Add(emptyObj);
+        //enemyObjectPool.Add(emptyObj);
         //set from enemy list to false
         emptyObj.SetActive(false);
     }
@@ -144,11 +156,16 @@ public class GameController : MonoBehaviour
         spawnMin = currLevel.GetSpawnMin();
         spawnMax = currLevel.GetSpawnMax();
 
+        //set the initial color for the bar
         PoposedColor = Color.white;
 
         isGameStart = true;
 
         levelNum.text = currLevel.GetLevelName();
+
+        enemObjectPool();
+
+
     }
 
     // Update is called once per frame
@@ -265,7 +282,8 @@ public class GameController : MonoBehaviour
 
         UpdateTimerBar();
 
-        elaspedTime= elaspedTime+Time.deltaTime;
+        //set the color back to initial color
+        elaspedTime = elaspedTime+Time.deltaTime;
 
         if (elaspedTime >= 2f)
         {
@@ -275,6 +293,16 @@ public class GameController : MonoBehaviour
 
     }
 
+    public void enemObjectPool()
+    {
+        // check the pool size
+       for(int i = 0; i < enemyPoolSize; i++)
+        {
+            GameObject enemy = Instantiate(enemyObj, this.gameObject.transform.position, Quaternion.identity, this.transform) as GameObject;
+            enemy.SetActive(false);
+            enemyObjectPool.Add(enemy);
+        }
+    }
 
     private Vector2 GetRandomOnScreenPos()
     {
@@ -292,7 +320,6 @@ public class GameController : MonoBehaviour
         //fix timer so it doesnt go negative/exceed timerMax
         currTimer = Mathf.Clamp(currTimer, 0, timerMax);
         PoposedColor = Color.green;
-        Color color = new Color32(215, 204, 179, 255);
         UpdateTimerBar();
     }
 
