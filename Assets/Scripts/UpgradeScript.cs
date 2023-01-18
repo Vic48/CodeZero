@@ -32,6 +32,10 @@ public class UpgradeScript : MonoBehaviour
     private float screenWidth;
     private float screenHeight;
 
+    private const float moveInterval = 1f; //interval between each direction change
+    private float moveTimer = moveInterval; //movement timer
+    private Vector2 moveDir = new Vector2(); //direction
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -55,8 +59,9 @@ public class UpgradeScript : MonoBehaviour
 
         if (timeLeft <= 0)
         {
-            direction = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
-            timeLeft += addTime;
+            float time = Time.deltaTime;
+
+            MoveUpdate(time);
         }
 
     }
@@ -69,14 +74,46 @@ public class UpgradeScript : MonoBehaviour
         transform.position = viewPos;
     }
 
+    public Vector2 MoveVector(float time, Vector2 selfPos, Vector2 viewportZero, Vector2 viewportOne)
+    {
+        moveTimer += time;
+
+        //check direction
+        if (moveTimer > moveInterval)
+        {
+            moveTimer -= moveInterval;
+
+            moveDir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
+            //adjust direction if hit boundary
+            if (selfPos.x + (moveDir.normalized.x * moveInterval) > viewportOne.x) moveDir.x = -Mathf.Abs(moveDir.x);
+            if (selfPos.x + (moveDir.normalized.x * moveInterval) < viewportZero.y) moveDir.x = Mathf.Abs(moveDir.x);
+            if (selfPos.y + (moveDir.normalized.y * moveInterval) > viewportOne.y) moveDir.y = -Mathf.Abs(moveDir.y);
+            if (selfPos.y + (moveDir.normalized.y * moveInterval) < viewportZero.y) moveDir.y = Mathf.Abs(moveDir.y);
+        }
+
+        return moveDir.normalized * time;
+    }
+
+    public void MoveUpdate(float time
+        )
+    {
+        Vector2 viewportZero = cam.ViewportToWorldPoint(Vector2.zero);
+        Vector2 viewportOne = cam.ViewportToWorldPoint(Vector2.one);
+
+        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 moveVector = Vector2.zero;
+        moveVector = MoveVector(time, transform.position, viewportZero, viewportOne);
+
+
+        this.transform.Translate(moveVector);
+    }
+
     public void PlayerUpgrade()
     {
         PlayerScript playerscript = Player.GetComponent<PlayerScript>();
         //if-else or use switch case to select the upgrade.
-    }
-    private void FixedUpdate()
-    {
-        rb.AddForce(direction * upgradeSpeed);
     }
 
     public void Initialize(GameController gameController, float timerAdd, float timerDmg, float lifetime, float upgradeSize, float upgradeSpeed)

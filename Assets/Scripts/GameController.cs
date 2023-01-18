@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour
         timerCountDown.text = seconds.ToString("0");
 
         //circles destroyed
-        circle_gone.text = circlesDestroyed.ToString("0");
+        circle_gone.text = circlesDestroyed.ToString("Score: " + "0");
 
         //-------------------   ENEMY -----------------
         
