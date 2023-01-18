@@ -12,34 +12,39 @@ public class GameController : MonoBehaviour
     public Object upgradeObj;
 
     [Header("Game")]
-    public float timerMax = 60f;
+    public float timerMax;
     public float timerAdd = 5f;
     public float timerDmg = 1f;
     public Image timerBar;
     public Text timerCountDown;
 
     [Header("Upgrade")]
-    public float upgradeInterval = 8f;
-    public int upgradeCount = 3;
-    public int upgradeSpawnMin = 3;
-    public int upgradeSpawnMax = 5;
+    public float upgradeInterval;
+    public int upgradeCount;
+    public int upgradeSpawnMin;
+    public int upgradeSpawnMax;
     public float upgradeLifetime = 5f; //DO NOT CHANGE
-    public float upgradeSizeMin = 0.7f;
-    public int upgradeSizeMaxInterval = 2;
-    public float upgradeSizeInterval = 0.2f;
+    public float upgradeSizeMin;
+    public int upgradeSizeMaxInterval;
+    public float upgradeSizeInterval;
 
     private float upgradeSpawnTimer = 0;
 
     [Header("Enemy")]
-    public float spawnInterval = 2f;
-    public int spawnMin = 3;
-    public int spawnMax = 10;
-    public float enemyLifetime = 10f;
-    public float enemySizeMin = 0.7f;
-    public int enemySizeMaxInterval = 2; //0.7+0.2+0.2=1.1 biggest circle size possible
-    public float sizeInterval = 0.2f;
-    public float enemyMinSpeed = 0.8f;
-    public float enemyMaxSpeed = 1.6f;
+    public float spawnInterval;
+    public int spawnMin;
+    public int spawnMax;
+    public float enemyLifetime = 10f; //DO NOT CHANGE
+    public float enemySizeMin;
+    public int enemySizeMaxInterval; //0.7+0.2+0.2=1.1 biggest circle size possible
+    public float sizeInterval;
+    public float enemyMinSpeed;
+    public float enemyMaxSpeed;
+    public float enemyMinSizeUpFreq;
+    public float enemyMaxSizeUpFreq;
+    public float enemyMinSpeedFreq;
+    public float enemyMaxSpeedFreq;
+    public float enemySpeedUpVal;
 
     private float spawnTimer = 0;
 
@@ -55,10 +60,6 @@ public class GameController : MonoBehaviour
     public GameObject gameOver; //game over panel
     public Text levelNum;
 
-    //[Header("UPGRADES_Data")]
-    //public GameController[] upgrade_data;
-
-
     private GameObject player;
 
     private List<GameObject> activeEnemyList = new List<GameObject>();
@@ -69,6 +70,10 @@ public class GameController : MonoBehaviour
 
     //object pooling
     private List<GameObject> enemyObjectPool = new List<GameObject>();
+
+    public Level levelScript;
+
+    //public List<GameObject> level_List;
 
     public GameObject GetEnemyObject(string aObjName, System.Action<GameObject> onLoaded)
     {
@@ -142,6 +147,40 @@ public class GameController : MonoBehaviour
         isGameStart = true;
 
         levelNum.text = currLevel.GetLevelName();
+
+        //-------------------   ENEMY -----------------
+
+        spawnInterval = currLevel.GetSpawnInterval();
+        enemySizeMin = currLevel.GetStartMinSize();
+        enemySizeMaxInterval = currLevel.GetStartMaxSizeInterval();
+        sizeInterval = currLevel.GetSizeUpValue();        
+        enemyMinSpeed = currLevel.GetStartMinSpeed();
+        enemyMaxSpeed = currLevel.GetStartMaxSpeed();
+
+        // TODO
+        //number of seconds between min size spawned enemies increases by sizeUpValue
+        enemyMinSizeUpFreq = currLevel.GetMinSizeUpFrequency();
+        //Number of seconds between each time the maximum size interval of spawned enemies increases by 1
+        enemyMaxSizeUpFreq = currLevel.GetMaxSizeUpFrequency();
+        enemyMinSpeedFreq = currLevel.GetMinSpeedUpFrequency();
+        enemyMaxSpeedFreq = currLevel.GetMaxSpeedUpFrequency();
+        enemySpeedUpVal = currLevel.GetSpeedUpValue();
+
+        //-------------------   UPGRADE -----------------
+
+        upgradeInterval = currLevel.GetUpgradeInterval();
+        upgradeCount = currLevel.GetUpgradeCount();
+        upgradeSpawnMin = currLevel.GetSpawnMin();
+        upgradeSpawnMax = currLevel.GetSpawnMax();
+        upgradeSizeMin = currLevel.GetStartMinSize();
+        upgradeSizeMaxInterval = currLevel.GetStartMaxSizeInterval();
+        upgradeSizeInterval = currLevel.GetSizeUpValue();
+
+        //-------------------   TIMER -----------------
+
+        timerMax = currLevel.GetMaxTime();
+
+        
     }
 
     // Update is called once per frame
@@ -196,6 +235,23 @@ public class GameController : MonoBehaviour
 
             //reset timer
             spawnTimer = 0;
+
+           
+
+            if (currTimer <= enemyMinSizeUpFreq)
+            {
+                //random size up value
+                float sizeUpFrequency = Random.Range(0, enemySizeMaxInterval - 1);
+                float incSize = enemySizeMin * sizeUpFrequency;
+                Debug.Log(incSize);
+                float enemyIncSize = enemySizeMin + incSize;
+                enemy.transform.localScale = new Vector2(enemyIncSize, enemyIncSize);
+
+                enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemySpeed);
+
+                activeEnemyList.Add(enemy);
+            }
+
         }
 
         //-------------------   UPGRADES -----------------
