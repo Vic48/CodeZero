@@ -203,6 +203,8 @@ public class GameController : MonoBehaviour
         //-------------------   TIMER -----------------
 
         timerMax = currLevel.GetMaxTime();
+
+        
     }
 
     // Update is called once per frame
@@ -258,7 +260,7 @@ public class GameController : MonoBehaviour
             //reset timer
             spawnTimer = 0;
 
-
+           
 
             if (currTimer <= enemyMinSizeUpFreq)
             {
