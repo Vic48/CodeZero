@@ -96,6 +96,7 @@ public class PlayerScript : MonoBehaviour
                         // upgradeScript.addUpgrade();
 
                         upgradeScript.DestroyUpgrade();
+                        gameController.circlesDestroyed += 1;
                     }
                     else
                     {
@@ -116,6 +117,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         //add time to timer - can add multiplier/more value GetTimerAdd * [smth]
                         gameController.AddTimer(enemyScript.GetTimerAdd());
+                        gameController.circlesDestroyed += 1;
 
                         enemyScript.DestroyEnemy();
                     }
