@@ -93,6 +93,7 @@ public class PlayerScript : MonoBehaviour
                     if (upgradeScript.GetUpgradeSize() <= dashDistance)
                     {
                         //add upgrade to player
+                        // upgradeScript.addUpgrade();
 
                         upgradeScript.DestroyUpgrade();
                     }

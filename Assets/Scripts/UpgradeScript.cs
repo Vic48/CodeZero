@@ -25,10 +25,11 @@ public class UpgradeScript : MonoBehaviour
     public float addTime = 2f; //add back time to timer
 
     public Rigidbody2D rb;
-
+    public GameObject Player;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -49,6 +50,11 @@ public class UpgradeScript : MonoBehaviour
 
     }
 
+    public void PlayerUpgrade()
+    {
+        PlayerScript playerscript = Player.GetComponent<PlayerScript>();
+        //if-else or use switch case to select the upgrade.
+    }
     private void FixedUpdate()
     {
         rb.AddForce(direction * upgradeSpeed);
@@ -75,4 +81,5 @@ public class UpgradeScript : MonoBehaviour
     public float GetTimerAdd() => timerAdd;
     public float GetTimerDmg() => timerDmg;
     public float GetUpgradeSize() => upgradeSize;
+
 }

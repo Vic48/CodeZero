@@ -89,6 +89,16 @@ public class GameController : MonoBehaviour
         return emptyObj;
     }
 
+    public void TakeAwayEnemy(GameObject emptyObj)
+    {
+        // remove the emptyObj from enemy list
+        activeEnemyList.Remove(emptyObj);
+        //add to the object pool
+        enemyObjectPool.Add(emptyObj);
+        //set from enemy list to false
+        emptyObj.SetActive(false);
+    }
+
     private Vector2 viewportZero, viewportOne;
     private Vector3 screenBoundary;
 
@@ -220,7 +230,7 @@ public class GameController : MonoBehaviour
             upgrade.transform.localScale = new Vector2(upgradeSize, upgradeSize);
 
             float upgradeSpeed = enemyMinSpeed;
-
+            
             //initializing data in UpgradeScript
             upgrade.GetComponent<UpgradeScript>().Initialize(this, timerAdd, timerDmg, upgradeLifetime, upgradeSize, upgradeSpeed);
 
@@ -251,16 +261,18 @@ public class GameController : MonoBehaviour
         //fix timer so it doesnt go negative/exceed timerMax
         currTimer = Mathf.Clamp(currTimer, 0, timerMax);
 
+        Color color = new Color32(215, 204, 179, 255);
         UpdateTimerBar();
     }
 
     public void MinusTimer(float aValue)
     {
         currTimer -= aValue;
-
         //fix timer so it doesnt go negative/exceed timerMax
         currTimer = Mathf.Clamp(currTimer, 0, timerMax);
 
+        Color color = new Color32(215, 204, 179, 255);
+        
         UpdateTimerBar();
     }
 
@@ -275,6 +287,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //TODO: need to add the removed enemy back to the object pool
     public void RemoveEnemy(GameObject enemyGO)
     {
         activeEnemyList.Remove(enemyGO);

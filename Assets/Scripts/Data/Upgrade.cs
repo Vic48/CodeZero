@@ -12,6 +12,7 @@ public class Upgrade
     private UpgradeType upgradeType;
     private float upgradeValue;
 
+
     public Upgrade(string id, string name, string shortName, Rarity rarity, int appearChance, UpgradeType upgradeType, float upgradeValue)
     {
         this.id = id;

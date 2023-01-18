@@ -70,8 +70,12 @@ public class EnemyScript : MonoBehaviour
     public void DestroyEnemy()
     {
         gameController.RemoveEnemy(this.gameObject);
+        gameController.TakeAwayEnemy(this.gameObject);
+        
 
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        // need to be add into the object pool 
+
     }
 
     public float GetTimerAdd() => timerAdd;
