@@ -55,6 +55,10 @@ public class GameController : MonoBehaviour
     public GameObject gameOver; //game over panel
     public Text levelNum;
 
+    //[Header("UPGRADES_Data")]
+    //public GameController[] upgrade_data;
+
+
     private GameObject player;
 
     private List<GameObject> activeEnemyList = new List<GameObject>();
@@ -102,7 +106,6 @@ public class GameController : MonoBehaviour
     }
 
     private Vector2 viewportZero, viewportOne;
-    //private Vector3 screenBoundary;
 
     private bool isGameStart = false;
 
@@ -118,9 +121,6 @@ public class GameController : MonoBehaviour
         this.GetComponent<DataManager>().GetData(StartGame); // this works only if the function has no input parameters
 
         gameOver.SetActive(false);
-
-        mainCamera = Camera.main;
-        //screenBoundary = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
     }
 
     public void StartGame()
@@ -141,7 +141,7 @@ public class GameController : MonoBehaviour
 
         isGameStart = true;
 
-        levelNum.text = currLevel.GetId();
+        levelNum.text = currLevel.GetLevelName();
     }
 
     // Update is called once per frame
@@ -202,7 +202,7 @@ public class GameController : MonoBehaviour
 
         upgradeSpawnTimer += Time.deltaTime;
 
-        if (activeUpgrades.Count < upgradeSpawnMin || ((upgradeSpawnTimer > upgradeInterval) && (activeUpgrades.Count < upgradeSpawnMax)))
+        if (activeUpgrades.Count < upgradeCount)
         {
             //spawn upgrade
             upgradeIndex++;

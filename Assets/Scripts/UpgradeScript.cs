@@ -26,10 +26,21 @@ public class UpgradeScript : MonoBehaviour
 
     public Rigidbody2D rb;
     public GameObject Player;
+
+    private Camera cam;
+    private Vector2 screenBoundary;
+    private float screenWidth;
+    private float screenHeight;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Player = GameObject.FindGameObjectWithTag("Player");
+
+        cam = Camera.main;
+        screenBoundary = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.transform.position.z));
+        screenWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
+        screenHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
     }
 
     void Update()
@@ -48,6 +59,14 @@ public class UpgradeScript : MonoBehaviour
             timeLeft += addTime;
         }
 
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 viewPos = transform.position;
+        viewPos.x = Mathf.Clamp(viewPos.x, screenBoundary.x * -1 + screenWidth, screenBoundary.x - screenWidth);
+        viewPos.y = Mathf.Clamp(viewPos.y, screenBoundary.y * -1 + screenHeight, screenBoundary.y - screenWidth);
+        transform.position = viewPos;
     }
 
     public void PlayerUpgrade()

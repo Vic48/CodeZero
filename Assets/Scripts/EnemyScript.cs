@@ -25,10 +25,20 @@ public class EnemyScript : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    private Camera cam;
+    private Vector2 screenBoundary;
+    private float screenWidth;
+    private float screenHeight;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        cam = Camera.main;
+        screenBoundary = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.transform.position.z));
+        screenWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
+        screenHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
     }
 
     // Update is called once per frame
@@ -47,12 +57,19 @@ public class EnemyScript : MonoBehaviour
             direction = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
             timeLeft += addTime;
         }
-
     }
 
     private void FixedUpdate()
     {
         rb.AddForce(direction * enemySpeed);
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 viewPos = transform.position;
+        viewPos.x = Mathf.Clamp(viewPos.x, screenBoundary.x * -1 + screenWidth, screenBoundary.x - screenWidth);
+        viewPos.y = Mathf.Clamp(viewPos.y, screenBoundary.y * -1 + screenHeight, screenBoundary.y - screenWidth);
+        transform.position = viewPos;
     }
 
     public void Initialize(GameController gameController, float timerAdd, float timerDmg, float lifetime, float enemySize, float enemySpeed)
