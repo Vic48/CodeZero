@@ -168,8 +168,6 @@ public class GameController : MonoBehaviour
 
         enemObjectPool();
 
-
-
         //-------------------   ENEMY -----------------
 
         spawnInterval = currLevel.GetSpawnInterval();
@@ -258,21 +256,22 @@ public class GameController : MonoBehaviour
             //reset timer
             spawnTimer = 0;
 
-           
 
-            //if (currTimer <= enemyMinSizeUpFreq)
-            //{
-            //    //random size up value
-            //    float sizeUpFrequency = Random.Range(enemySizeMin, enemySizeMaxInterval + 1);
-            //    //float incSize = sizeInterval;
-            //    float enemyIncSize = enemySizeMin + sizeInterval;
-            //    Debug.Log(enemyIncSize);
-            //    enemy.transform.localScale = new Vector2(enemyIncSize, enemyIncSize);
+            //30 seconds later
+            if (currTimer <= enemyMinSizeUpFreq)
+            {
+                //random size up value
+                int sizeUpFrequency = Random.Range(0, enemySizeMaxInterval + 1);
+                float enemyIncSize = (enemySizeMin + sizeInterval) + ((float)sizeUpFrequency * sizeInterval);
+                Debug.Log(enemyIncSize);
+                enemy.transform.localScale = new Vector2(enemyIncSize, enemyIncSize);
 
-            //    enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemySpeed);
+                //float enemyIncSpeed = enemyMinSpeed * enemyMinSpeedFreq;
 
-            //    activeEnemyList.Add(enemy);
-            //}
+                enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemySpeed);
+
+                activeEnemyList.Add(enemy);
+            }
 
         }
 
@@ -317,6 +316,7 @@ public class GameController : MonoBehaviour
             //each upgrade has diff number
             upgrade.name = "Upgrade_" + Game.GetGameData().GetUpgradeList()[loopNum].GetName() + "_" + upgradeIndex;
             upgrade.GetComponent<UpgradeScript>().thisRarity = Game.GetGameData().GetUpgradeList()[loopNum].GetRarity();
+            
             int randSize = Random.Range(0, upgradeSizeMaxInterval + 1);
 
             float upgradeSize = upgradeSizeMin + ((float)randSize * upgradeSizeInterval);

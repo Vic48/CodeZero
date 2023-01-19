@@ -319,7 +319,7 @@ MonoBehaviour:
   enemyMinSpeedFreq: 0
   enemyMaxSpeedFreq: 0
   enemySpeedUpVal: 0
-  enemyPoolSize: 8
+  enemyPoolSize: 20
   circlesDestroyed: 0
   circle_gone: {fileID: 1566423628}
   gameOver: {fileID: 587497779}
@@ -715,7 +715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &587497780
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1912,7 +1912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1791480774
 RectTransform:
   m_ObjectHideFlags: 0

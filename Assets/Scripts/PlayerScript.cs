@@ -94,7 +94,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         //add upgrade to player
                         // upgradeScript.addUpgrade();
-
+                        //gameController.AddTimer(upgradeScript.GetTimerAdd());
                         upgradeScript.DestroyUpgrade();
                         gameController.circlesDestroyed += 1;
                     }
