@@ -295,6 +295,8 @@ MonoBehaviour:
   timerDmg: 1
   timerBar: {fileID: 1905398155}
   timerCountDown: {fileID: 1983035190}
+  elaspedTime: 0
+  PoposedColor: {r: 0, g: 0, b: 0, a: 0}
   upgradeInterval: 2
   upgradeCount: 3
   upgradeSpawnMin: 3
@@ -312,6 +314,12 @@ MonoBehaviour:
   sizeInterval: 0.2
   enemyMinSpeed: 0.8
   enemyMaxSpeed: 1.6
+  enemyMinSizeUpFreq: 0
+  enemyMaxSizeUpFreq: 0
+  enemyMinSpeedFreq: 0
+  enemyMaxSpeedFreq: 0
+  enemySpeedUpVal: 0
+  enemyPoolSize: 8
   circlesDestroyed: 0
   circle_gone: {fileID: 1566423628}
   gameOver: {fileID: 587497779}

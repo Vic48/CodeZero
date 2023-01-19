@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
     public float enemyMaxSpeedFreq;
     public float enemySpeedUpVal;
 
-    public int enemyPoolSize = 8;
+    public int enemyPoolSize = 10;
     private float spawnTimer = 0;
 
     //timer that decreases over time - not actual gameplay time
@@ -78,8 +78,6 @@ public class GameController : MonoBehaviour
     private List<GameObject> enemyObjectPool = new List<GameObject>();
 
     public Level levelScript;
-
-    //public List<GameObject> level_List;
 
     public GameObject GetEnemyObject(string aObjName, System.Action<GameObject> onLoaded)
     {
@@ -262,19 +260,19 @@ public class GameController : MonoBehaviour
 
            
 
-            if (currTimer <= enemyMinSizeUpFreq)
-            {
-                //random size up value
-                float sizeUpFrequency = Random.Range(0, enemySizeMaxInterval - 1);
-                float incSize = enemySizeMin * sizeUpFrequency;
-                Debug.Log(incSize);
-                float enemyIncSize = enemySizeMin + incSize;
-                enemy.transform.localScale = new Vector2(enemyIncSize, enemyIncSize);
+            //if (currTimer <= enemyMinSizeUpFreq)
+            //{
+            //    //random size up value
+            //    float sizeUpFrequency = Random.Range(enemySizeMin, enemySizeMaxInterval + 1);
+            //    //float incSize = sizeInterval;
+            //    float enemyIncSize = enemySizeMin + sizeInterval;
+            //    Debug.Log(enemyIncSize);
+            //    enemy.transform.localScale = new Vector2(enemyIncSize, enemyIncSize);
 
-                enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemySpeed);
+            //    enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemySpeed);
 
-                activeEnemyList.Add(enemy);
-            }
+            //    activeEnemyList.Add(enemy);
+            //}
 
         }
 
@@ -403,6 +401,7 @@ public class GameController : MonoBehaviour
     public void RemoveEnemy(GameObject enemyGO)
     {
         activeEnemyList.Remove(enemyGO);
+        enemyObjectPool.Add(enemyGO);
     }
 
     public void RemoveUpgrade(GameObject upgradeGO)
