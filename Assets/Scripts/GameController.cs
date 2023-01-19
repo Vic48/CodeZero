@@ -263,12 +263,12 @@ public class GameController : MonoBehaviour
                 //random size up value
                 int sizeUpFrequency = Random.Range(0, enemySizeMaxInterval + 1);
                 float enemyIncSize = (enemySizeMin + sizeInterval) + ((float)sizeUpFrequency * sizeInterval);
-                Debug.Log(enemyIncSize);
+                //Debug.Log(enemyIncSize);
                 enemy.transform.localScale = new Vector2(enemyIncSize, enemyIncSize);
 
-                //float enemyIncSpeed = enemyMinSpeed * enemyMinSpeedFreq;
-
-                enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemySpeed);
+                float enemyIncSpeed = enemyMinSpeed * enemyMinSpeedFreq;
+                //Debug.Log(enemyIncSpeed);
+                enemy.GetComponent<EnemyScript>().Initialize(this, timerAdd, timerDmg, enemyLifetime, enemySize, enemyIncSpeed);
 
                 activeEnemyList.Add(enemy);
             }
