@@ -13,6 +13,8 @@ public class PlayerScript : MonoBehaviour
     public float dashDistance = 1f; //enemies with diameter lesser than 1 will get destroyed
     public float dashCooldown = 0.3f; //DO NOT CHANGE
     public float damageCooldown = 0.5f; //DO NOT CHANGE
+    public float defMult = 1f;
+    public float timeMult = 1f;
 
     [Header("Dash")]
     //reference to DashCircle and DashLine
@@ -93,6 +95,7 @@ public class PlayerScript : MonoBehaviour
                     if (upgradeScript.GetUpgradeSize() <= dashDistance)
                     {
                         //add upgrade to player
+                        giveEnergy(upgradeScript);
                         // upgradeScript.addUpgrade();
 
                         upgradeScript.DestroyUpgrade();
@@ -209,6 +212,27 @@ public class PlayerScript : MonoBehaviour
             gameController.MinusTimer(upgradeScript.GetTimerDmg());
 
             damageTimer = damageCooldown;
+        }
+    }
+
+    public void giveEnergy(UpgradeScript targetUpgrade)
+    {
+        if(targetUpgrade.thisUpgradeType == UpgradeType.SPEED)
+        {
+            playerSpeed += targetUpgrade.thisUpgradeValue;
+        }
+        else if (targetUpgrade.thisUpgradeType == UpgradeType.LINE)
+        {
+            dashDistance += targetUpgrade.thisUpgradeValue;
+        }
+        else if (targetUpgrade.thisUpgradeType == UpgradeType.DEF_MULT)
+        {
+            defMult *= targetUpgrade.thisUpgradeValue;
+        }
+        else if (targetUpgrade.thisUpgradeType == UpgradeType.TIME_MULT)
+        {
+            gameController.PoposedColor = Color.green;
+            timeMult *= targetUpgrade.thisUpgradeValue;
         }
     }
 }

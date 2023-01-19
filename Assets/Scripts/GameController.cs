@@ -332,7 +332,9 @@ public class GameController : MonoBehaviour
             //each upgrade has diff number
             upgrade.name = "Upgrade_" + Game.GetGameData().GetUpgradeList()[loopNum].GetName() + "_" + upgradeIndex;
             upgrade.GetComponent<UpgradeScript>().thisRarity = Game.GetGameData().GetUpgradeList()[loopNum].GetRarity();
-            
+            upgrade.GetComponent<UpgradeScript>().thisUpgradeType = Game.GetGameData().GetUpgradeList()[loopNum].GetUpgradeType();
+            upgrade.GetComponent<UpgradeScript>().thisUpgradeValue = Game.GetGameData().GetUpgradeList()[loopNum].GetUpgradeValue();
+
             int randSize = Random.Range(0, upgradeSizeMaxInterval + 1);
 
             float upgradeSize = upgradeSizeMin + ((float)randSize * upgradeSizeInterval);

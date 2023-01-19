@@ -36,9 +36,10 @@ public class UpgradeScript : MonoBehaviour
     private float moveTimer = moveInterval; //movement timer
     private Vector2 moveDir = new Vector2(); //direction
 
+    public UpgradeType thisUpgradeType;
     public Color RarityColor = new Color (1,1,1,1);
     public Rarity thisRarity;
-    public Upgrade thisUpgrade;
+    public float thisUpgradeValue;
 
     void Start()
     {
@@ -57,6 +58,7 @@ public class UpgradeScript : MonoBehaviour
         timeLeft -= Time.deltaTime;
 
         GetComponent<SpriteRenderer>().color = RarityColor;
+
 
         if (lifetime <= 0)
         {

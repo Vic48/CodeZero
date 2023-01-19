@@ -28,6 +28,9 @@ public class EnemyScript : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    // animation related
+    //public Animator anim;
+
     private Camera cam;
     private Vector2 screenBoundary;
     private float screenWidth;
@@ -124,9 +127,11 @@ public class EnemyScript : MonoBehaviour
         
         gameController.TakeAwayEnemy(this.gameObject);
         gameController.RemoveEnemy(this.gameObject);
-        //Destroy(this.gameObject);
-        // need to be add into the object pool 
 
+        //die animation
+        //anim.SetBool("IsDead", true);
+
+        //Destroy(this.gameObject);
     }
 
     public float GetTimerAdd() => timerAdd;
