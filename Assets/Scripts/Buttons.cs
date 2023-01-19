@@ -34,11 +34,6 @@ public class Buttons : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void PlayGame()
-    {
-        SceneManager.LoadScene(1);
-    }
-
     public void HowToPlay()
     {
         howtoplayPanel.SetActive(true);

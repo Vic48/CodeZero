@@ -6,19 +6,20 @@ using UnityEngine.UI;
 
 public class LevelControl : MonoBehaviour
 {
-    public Button[] levelButtons;
-    public int sceneID;
+    public Button level1, level2, level3;
 
     void Start()
     {
-        int levelAt = PlayerPrefs.GetInt("levelAt", 2);
+        level1.interactable = true;
+        level2.interactable = true;
+        level3.interactable = true;
+    }
 
-        for (int i = 0; i < levelButtons.Length; i++)
-        {
-            if (i + 2 > levelAt)
-            {
-                levelButtons[i].interactable = false;
-            }
-        }
+    //hard coded version
+    public void LevelToLoad(int level)
+    {
+
+        SceneManager.LoadScene(level);
+
     }
 }

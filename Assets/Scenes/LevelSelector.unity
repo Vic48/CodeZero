@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 93924466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1299269338}
+        m_TargetAssemblyTypeName: LevelControl, Assembly-CSharp
+        m_MethodName: LevelToLoad
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 3
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &93924466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +338,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 492346619}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1299269338}
+        m_TargetAssemblyTypeName: LevelControl, Assembly-CSharp
+        m_MethodName: LevelToLoad
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &492346619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,7 +550,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 827062408}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1299269338}
+        m_TargetAssemblyTypeName: LevelControl, Assembly-CSharp
+        m_MethodName: LevelToLoad
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 2
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &827062408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,11 +630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7cb40bed5dc2044b49415ea9417a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelButtons:
-  - {fileID: 492346618}
-  - {fileID: 827062407}
-  - {fileID: 93924465}
-  sceneID: 1
+  level1: {fileID: 492346618}
+  level2: {fileID: 827062407}
+  level3: {fileID: 93924465}
 --- !u!4 &1299269339
 Transform:
   m_ObjectHideFlags: 0

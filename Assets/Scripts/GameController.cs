@@ -65,7 +65,8 @@ public class GameController : MonoBehaviour
     public Text circle_gone;
     public GameObject gameOver; //game over panel
     public GameObject pauseMenu;
-    public Text levelNum;
+    public Text levelText;
+    public int levelNum;
     public float surviveTimer;
     public Text timesurviveText;
 
@@ -172,7 +173,8 @@ public class GameController : MonoBehaviour
 
         isGameStart = true;
 
-        levelNum.text = currLevel.GetLevelName();
+        levelText.text = levelNum.ToString("Level: "+ currLevel.GetLevelName());
+
 
         enemObjectPool();
 
