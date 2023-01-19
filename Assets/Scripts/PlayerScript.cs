@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     public float defMult = 1f;
     public float timeMult = 1f;
 
+
     [Header("Dash")]
     //reference to DashCircle and DashLine
     public SpriteRenderer dashCircle;

@@ -29,7 +29,7 @@ public class EnemyScript : MonoBehaviour
     public Rigidbody2D rb;
 
     // animation related
-    //public Animator anim;
+    public Animator anim;
 
     private Camera cam;
     private Vector2 screenBoundary;
@@ -129,7 +129,7 @@ public class EnemyScript : MonoBehaviour
         gameController.RemoveEnemy(this.gameObject);
 
         //die animation
-        //anim.SetBool("IsDead", true);
+        anim.SetBool("IsDead", true);
 
         //Destroy(this.gameObject);
     }

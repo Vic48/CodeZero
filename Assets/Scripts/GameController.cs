@@ -66,6 +66,8 @@ public class GameController : MonoBehaviour
     public GameObject gameOver; //game over panel
     public GameObject pauseMenu;
     public Text levelNum;
+    public float surviveTimer;
+    public Text timesurviveText;
 
     private GameObject player;
 
@@ -166,6 +168,8 @@ public class GameController : MonoBehaviour
         //set the initial color for the bar
         PoposedColor = Color.white;
 
+        surviveTimer = 0f;
+
         isGameStart = true;
 
         levelNum.text = currLevel.GetLevelName();
@@ -232,6 +236,10 @@ public class GameController : MonoBehaviour
         currTimer = Mathf.Clamp(currTimer, 0, timerMax);
         int seconds = Mathf.FloorToInt(currTimer % 60F);
         timerCountDown.text = seconds.ToString("0");
+
+        //survive timer
+        surviveTimer += Time.deltaTime;
+        timesurviveText.text = "Player Survived: " + Mathf.RoundToInt(surviveTimer).ToString();
 
         //circles destroyed
         circle_gone.text = circlesDestroyed.ToString("Score: " + "0");
