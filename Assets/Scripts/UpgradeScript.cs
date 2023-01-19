@@ -36,21 +36,27 @@ public class UpgradeScript : MonoBehaviour
     private float moveTimer = moveInterval; //movement timer
     private Vector2 moveDir = new Vector2(); //direction
 
+    public Color RarityColor = new Color (1,1,1,1);
+    public Rarity thisRarity;
+    public Upgrade thisUpgrade;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Player = GameObject.FindGameObjectWithTag("Player");
-
         cam = Camera.main;
         screenBoundary = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.transform.position.z));
         screenWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
         screenHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
+        checkUpgradeRarity();
     }
 
     void Update()
     {
         lifetime -= Time.deltaTime;
         timeLeft -= Time.deltaTime;
+
+        GetComponent<SpriteRenderer>().color = RarityColor;
 
         if (lifetime <= 0)
         {
@@ -108,6 +114,18 @@ public class UpgradeScript : MonoBehaviour
 
 
         this.transform.Translate(moveVector);
+    }
+
+    public void checkUpgradeRarity()
+    {
+        if(thisRarity == Rarity.COMMON)
+        {
+            RarityColor =Color.blue;
+        }
+        else
+        {
+            RarityColor = Color.yellow;
+        }
     }
 
     public void PlayerUpgrade()
