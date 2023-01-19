@@ -64,6 +64,7 @@ public class GameController : MonoBehaviour
     public int circlesDestroyed;
     public Text circle_gone;
     public GameObject gameOver; //game over panel
+    public GameObject pauseMenu;
     public Text levelNum;
 
     private GameObject player;
@@ -78,6 +79,7 @@ public class GameController : MonoBehaviour
     private List<GameObject> enemyObjectPool = new List<GameObject>();
 
     public Level levelScript;
+    public bool pausedGame;
 
     public GameObject GetEnemyObject(string aObjName, System.Action<GameObject> onLoaded)
     {
@@ -141,6 +143,8 @@ public class GameController : MonoBehaviour
         this.GetComponent<DataManager>().GetData(StartGame); // this works only if the function has no input parameters
 
         gameOver.SetActive(false);
+        pauseMenu.SetActive(false);
+        pausedGame = false;
     }
 
     public void StartGame()
@@ -207,6 +211,18 @@ public class GameController : MonoBehaviour
     void Update()
     {
         if (!isGameStart) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pausedGame == false)
+            {
+                PauseGame();
+            }
+            else
+            {
+                Resume();
+            }
+        }
 
         spawnTimer += Time.deltaTime;
         currTimer -= Time.deltaTime;
@@ -407,5 +423,19 @@ public class GameController : MonoBehaviour
     public void RemoveUpgrade(GameObject upgradeGO)
     {
         activeUpgrades.Remove(upgradeGO);
+    }
+
+    public void PauseGame()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        pausedGame = true;
+    }
+
+    public void Resume()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        pausedGame = false;
     }
 }
