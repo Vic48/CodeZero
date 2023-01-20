@@ -425,7 +425,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //TODO: need to add the removed enemy back to the object pool
+    // add the removed enemy back to the object pool
     public void RemoveEnemy(GameObject enemyGO)
     {
         activeEnemyList.Remove(enemyGO);

@@ -40,6 +40,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         cam = Camera.main;
         screenBoundary = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.transform.position.z));
@@ -55,7 +56,7 @@ public class EnemyScript : MonoBehaviour
 
         if (lifetime <= 0)
         {
-            DestroyEnemy();
+            DeadEnemy();
         }
 
         if (timeLeft <= 0)
@@ -122,14 +123,15 @@ public class EnemyScript : MonoBehaviour
         this.enemySpeed = enemySpeed;
     }
 
+    public void DeadEnemy()
+    {
+        anim.SetBool("IsDead", true);
+    }
+
     public void DestroyEnemy()
     {
-        
         gameController.TakeAwayEnemy(this.gameObject);
         gameController.RemoveEnemy(this.gameObject);
-
-        //die animation
-        anim.SetBool("IsDead", true);
 
         //Destroy(this.gameObject);
     }

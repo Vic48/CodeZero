@@ -123,7 +123,7 @@ public class PlayerScript : MonoBehaviour
                         gameController.AddTimer(enemyScript.GetTimerAdd());
                         gameController.circlesDestroyed += 1;
 
-                        enemyScript.DestroyEnemy();
+                        enemyScript.DeadEnemy();
                     }
                     else
                     {

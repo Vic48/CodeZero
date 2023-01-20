@@ -9,7 +9,7 @@ public class Buttons : MonoBehaviour
 
     void Start()
     {
-        howtoplayPanel.SetActive(false);     
+        howtoplayPanel.SetActive(false);
     }
 
     public void LevelSelect()
