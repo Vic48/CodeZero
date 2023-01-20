@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
     private List<GameObject> enemyObjectPool = new List<GameObject>();
 
     public Level levelScript;
-    public bool pausedGame;
+    public bool playerIsDead;
 
     public GameObject GetEnemyObject(string aObjName, System.Action<GameObject> onLoaded)
     {
@@ -146,6 +146,7 @@ public class GameController : MonoBehaviour
         // StartGame to only start running after I have gotten my data
         this.GetComponent<DataManager>().GetData(StartGame); // this works only if the function has no input parameters
         Time.timeScale = 1f;
+        playerIsDead = false;
     }
 
     public void StartGame()
@@ -218,7 +219,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(levelId+ " Timermax: " + timerMax);
+        //Debug.Log(levelId+ " Timermax: " + timerMax);
         if (!isGameStart) return;
 
         spawnTimer += Time.deltaTime;
@@ -231,11 +232,15 @@ public class GameController : MonoBehaviour
         timerCountDown.text = seconds.ToString("0");
 
         //survive timer
-        surviveTimer += Time.deltaTime;
-        timesurviveText.text = "Player Survived: " + Mathf.RoundToInt(surviveTimer).ToString();
+        if (playerIsDead == false)
+        {
+            surviveTimer += Time.deltaTime;
+            timesurviveText.text = "Player Survived: " + Mathf.RoundToInt(surviveTimer).ToString();
 
-        //circles destroyed
-        circle_gone.text = circlesDestroyed.ToString("Score: " + "0");
+            //circles destroyed
+            circle_gone.text = circlesDestroyed.ToString("Score: " + "0");
+        }
+        
 
         //-------------------   ENEMY -----------------
 
@@ -413,6 +418,7 @@ public class GameController : MonoBehaviour
         if (timerBar.fillAmount == 0)
         {
             GameOver();
+            playerIsDead = true;
         }
     }
 
@@ -430,9 +436,9 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
-        FindObjectOfType<AudioManager>().StopPlaying("GameBGM");
-        FindObjectOfType<AudioManager>().Play("GameOver");
         Time.timeScale = 0f;
         buttonScript.gameOver.SetActive(true);
+        FindObjectOfType<AudioManager>().StopPlaying("GameBGM");
+        //FindObjectOfType<AudioManager>().Play("GameOver");
     }
 }

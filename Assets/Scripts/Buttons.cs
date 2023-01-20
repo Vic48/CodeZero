@@ -65,6 +65,7 @@ public class Buttons : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
+        FindObjectOfType<AudioManager>().StopPlaying("GameOver");
     }
 
     public void Quit()
