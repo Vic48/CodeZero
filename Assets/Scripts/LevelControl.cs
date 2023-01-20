@@ -6,20 +6,28 @@ using UnityEngine.UI;
 
 public class LevelControl : MonoBehaviour
 {
-    public Button level1, level2, level3;
+    public GameObject levelSelection;
 
-    void Start()
+    private void Start()
     {
-        level1.interactable = true;
-        level2.interactable = true;
-        level3.interactable = true;
+        levelSelection.SetActive(true);
     }
 
-    //hard coded version
-    public void LevelToLoad(int level)
+    public void levelOne()
     {
+        PlayerPrefs.SetString("levelId", "1");
+        SceneManager.LoadScene("Main");
+    }
 
-        SceneManager.LoadScene(level);
+    public void levelTwo()
+    {
+        PlayerPrefs.SetString("levelId", "2");
+        SceneManager.LoadScene("Main");
+    }
 
+    public void levelThree()
+    {
+        PlayerPrefs.SetString("levelId", "3");
+        SceneManager.LoadScene("Main");
     }
 }

@@ -7,9 +7,44 @@ public class Buttons : MonoBehaviour
 {
     public GameObject howtoplayPanel;
 
+    public bool pausedGame;
+    public GameObject pauseMenu; 
+    public GameObject gameOver;
+
     void Start()
     {
         howtoplayPanel.SetActive(false);
+        pauseMenu.SetActive(false);
+        gameOver.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pausedGame == false)
+            {
+                PauseGame();
+            }
+            else
+            {
+                Resume();
+            }
+        }
+    }
+
+    public void PauseGame()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        pausedGame = true;
+    }
+
+    public void Resume()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        pausedGame = false;
     }
 
     public void LevelSelect()

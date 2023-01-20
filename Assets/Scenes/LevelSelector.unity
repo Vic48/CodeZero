@@ -208,8 +208,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1299269338}
         m_TargetAssemblyTypeName: LevelControl, Assembly-CSharp
-        m_MethodName: LevelToLoad
-        m_Mode: 3
+        m_MethodName: levelThree
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -341,8 +341,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1299269338}
         m_TargetAssemblyTypeName: LevelControl, Assembly-CSharp
-        m_MethodName: LevelToLoad
-        m_Mode: 3
+        m_MethodName: levelOne
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -553,8 +553,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1299269338}
         m_TargetAssemblyTypeName: LevelControl, Assembly-CSharp
-        m_MethodName: LevelToLoad
-        m_Mode: 3
+        m_MethodName: levelTwo
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -630,9 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7cb40bed5dc2044b49415ea9417a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level1: {fileID: 492346618}
-  level2: {fileID: 827062407}
-  level3: {fileID: 93924465}
+  levelSelection: {fileID: 1299269337}
 --- !u!4 &1299269339
 Transform:
   m_ObjectHideFlags: 0

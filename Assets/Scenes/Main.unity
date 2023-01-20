@@ -407,6 +407,7 @@ MonoBehaviour:
   levelNum: 0
   surviveTimer: 0
   timesurviveText: {fileID: 1896584910}
+  buttonScript: {fileID: 0}
   activeUpgrades: []
   pausedGame: 0
   digit: 0
@@ -1498,6 +1499,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   howtoplayPanel: {fileID: 0}
+  pausedGame: 0
+  pauseMenu: {fileID: 1791480773}
+  gameOver: {fileID: 587497779}
 --- !u!4 &1254920562
 Transform:
   m_ObjectHideFlags: 0

@@ -63,14 +63,15 @@ public class GameController : MonoBehaviour
     [Header("HUD")]
     public int circlesDestroyed;
     public Text circle_gone;
-    public GameObject gameOver; //game over panel
-    public GameObject pauseMenu;
+    //public GameObject gameOver; //game over panel
+    //public GameObject pauseMenu;
     public Text levelText;
     public int levelNum;
     public float surviveTimer;
     public Text timesurviveText;
 
     private GameObject player;
+    public Buttons buttonScript;
 
     private List<GameObject> activeEnemyList = new List<GameObject>();
     private int enemyIndex = 0;
@@ -144,10 +145,7 @@ public class GameController : MonoBehaviour
         // GetComponent only works if the two scripts are on the same object
         // StartGame to only start running after I have gotten my data
         this.GetComponent<DataManager>().GetData(StartGame); // this works only if the function has no input parameters
-
-        gameOver.SetActive(false);
-        pauseMenu.SetActive(false);
-        pausedGame = false;
+        Time.timeScale = 1f;
     }
 
     public void StartGame()
@@ -159,9 +157,10 @@ public class GameController : MonoBehaviour
         player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
         player.GetComponent<PlayerScript>().Intialize(mainCamera, this);
 
+        levelId = PlayerPrefs.GetString("levelId");
         Level currLevel = Game.GetGameData().GetLevelByRefId(levelId);
 
-        currTimer = Game.GetGameData().GetLevelByRefId(levelId).GetMaxTime();
+        //currTimer = Game.GetGameData().GetLevelByRefId(levelId).GetMaxTime();
 
         spawnMin = currLevel.GetSpawnMin();
         spawnMax = currLevel.GetSpawnMax();
@@ -209,6 +208,7 @@ public class GameController : MonoBehaviour
         //-------------------   TIMER -----------------
 
         timerMax = currLevel.GetMaxTime();
+        currTimer = timerMax;
 
         
     }
@@ -216,19 +216,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(levelId+ " Timermax: " + timerMax);
         if (!isGameStart) return;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (pausedGame == false)
-            {
-                PauseGame();
-            }
-            else
-            {
-                Resume();
-            }
-        }
 
         spawnTimer += Time.deltaTime;
         currTimer -= Time.deltaTime;
@@ -421,7 +410,7 @@ public class GameController : MonoBehaviour
         //if timerBar = 0, show game over screen
         if (timerBar.fillAmount == 0)
         {
-            gameOver.SetActive(true);
+            buttonScript.gameOver.SetActive(true);
         }
     }
 
@@ -435,19 +424,5 @@ public class GameController : MonoBehaviour
     public void RemoveUpgrade(GameObject upgradeGO)
     {
         activeUpgrades.Remove(upgradeGO);
-    }
-
-    public void PauseGame()
-    {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-        pausedGame = true;
-    }
-
-    public void Resume()
-    {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        pausedGame = false;
     }
 }
