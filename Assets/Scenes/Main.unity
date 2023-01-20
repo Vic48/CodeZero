@@ -405,7 +405,7 @@ MonoBehaviour:
   levelNum: 0
   surviveTimer: 0
   timesurviveText: {fileID: 1896584910}
-  buttonScript: {fileID: 0}
+  buttonScript: {fileID: 1254920561}
   activeUpgrades: []
   pausedGame: 0
   digit: 0
