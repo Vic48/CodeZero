@@ -411,6 +411,7 @@ public class GameController : MonoBehaviour
         if (timerBar.fillAmount == 0)
         {
             buttonScript.gameOver.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("Hurt");
         }
     }
 

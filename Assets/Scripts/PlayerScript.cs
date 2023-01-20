@@ -97,6 +97,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         //add upgrade to player
                         giveEnergy(upgradeScript);
+                        FindObjectOfType<AudioManager>().Play("Upgrade");
                         // upgradeScript.addUpgrade();
 
                         upgradeScript.DestroyUpgrade();
@@ -113,6 +114,7 @@ public class PlayerScript : MonoBehaviour
                     //if hit enemy
                 if (hit.collider.GetComponent<EnemyScript>() != null)
                 {
+                    FindObjectOfType<AudioManager>().Play("Attack");
                     //destroy
                     EnemyScript enemyScript = hit.collider.GetComponent<EnemyScript>();
 
