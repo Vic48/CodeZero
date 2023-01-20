@@ -13,6 +13,7 @@ public class Buttons : MonoBehaviour
 
     void Start()
     {
+        FindObjectOfType<AudioManager>().Play("MenuBGM");
         howtoplayPanel.SetActive(false);
         pauseMenu.SetActive(false);
         gameOver.SetActive(false);
@@ -38,6 +39,8 @@ public class Buttons : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         pausedGame = true;
+        FindObjectOfType<AudioManager>().StopPlaying("GameBGM");
+        FindObjectOfType<AudioManager>().Play("MenuBGM");
     }
 
     public void Resume()
@@ -45,11 +48,15 @@ public class Buttons : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         pausedGame = false;
+        FindObjectOfType<AudioManager>().StopPlaying("MenuBGM");
+        FindObjectOfType<AudioManager>().Play("GameBGM");
+
     }
 
     public void LevelSelect()
     {
         SceneManager.LoadScene(1);
+        FindObjectOfType<AudioManager>().Play("MenuBGM");
     }
 
     public void Restart()
@@ -67,6 +74,7 @@ public class Buttons : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
+        FindObjectOfType<AudioManager>().Play("MenuBGM");
     }
 
     public void HowToPlay()

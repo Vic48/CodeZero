@@ -150,6 +150,8 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        FindObjectOfType<AudioManager>().StopPlaying("MenuBGM");
+        FindObjectOfType<AudioManager>().Play("GameBGM");
         viewportZero = mainCamera.ViewportToWorldPoint(Vector2.zero);
         viewportOne = mainCamera.ViewportToWorldPoint(Vector2.one);
 
@@ -411,7 +413,8 @@ public class GameController : MonoBehaviour
         if (timerBar.fillAmount == 0)
         {
             buttonScript.gameOver.SetActive(true);
-            FindObjectOfType<AudioManager>().Play("Hurt");
+            FindObjectOfType<AudioManager>().StopPlaying("GameBGM");
+            FindObjectOfType<AudioManager>().Play("GameOver");
         }
     }
 
