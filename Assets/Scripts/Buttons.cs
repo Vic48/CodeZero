@@ -10,6 +10,7 @@ public class Buttons : MonoBehaviour
     public bool pausedGame;
     public GameObject pauseMenu; 
     public GameObject gameOver;
+    public GameObject optionsPanel;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class Buttons : MonoBehaviour
         howtoplayPanel.SetActive(false);
         pauseMenu.SetActive(false);
         gameOver.SetActive(false);
+        optionsPanel.SetActive(false);
     }
 
     private void Update()
@@ -80,5 +82,10 @@ public class Buttons : MonoBehaviour
     public void HowToPlay()
     {
         howtoplayPanel.SetActive(true);
+    }
+
+    public void Options()
+    {
+        optionsPanel.SetActive(true);
     }
 }

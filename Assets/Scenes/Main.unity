@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 0.98039216}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1500,6 +1500,7 @@ MonoBehaviour:
   pausedGame: 0
   pauseMenu: {fileID: 1791480773}
   gameOver: {fileID: 587497779}
+  optionsPanel: {fileID: 0}
 --- !u!4 &1254920562
 Transform:
   m_ObjectHideFlags: 0
@@ -2627,7 +2628,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6089696312063184650, guid: 151dd136c3298e04581ca8a738b64b5a, type: 3}
       propertyPath: sounds.Array.data[1].volume
-      value: 0.3
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089696312063184650, guid: 151dd136c3298e04581ca8a738b64b5a, type: 3}
+      propertyPath: sounds.Array.data[3].volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6089696312063184651, guid: 151dd136c3298e04581ca8a738b64b5a, type: 3}
       propertyPath: m_Name

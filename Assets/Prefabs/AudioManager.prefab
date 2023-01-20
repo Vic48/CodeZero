@@ -46,13 +46,13 @@ MonoBehaviour:
   sounds:
   - name: MenuBGM
     clip: {fileID: 8300000, guid: cc51caa84fb92464dab955fe5d595aac, type: 3}
-    volume: 0.2
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: GameBGM
     clip: {fileID: 8300000, guid: c7719468eed8ea340adfb76562016ad1, type: 3}
-    volume: 0.2
+    volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -62,9 +62,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: GameOverBGM
-    clip: {fileID: 8300000, guid: c7719468eed8ea340adfb76562016ad1, type: 3}
-    volume: 0.5
+  - name: GameOver
+    clip: {fileID: 8300000, guid: 15c0256874332304a8f4b77431828994, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}

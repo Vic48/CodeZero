@@ -412,9 +412,7 @@ public class GameController : MonoBehaviour
         //if timerBar = 0, show game over screen
         if (timerBar.fillAmount == 0)
         {
-            buttonScript.gameOver.SetActive(true);
-            FindObjectOfType<AudioManager>().StopPlaying("GameBGM");
-            FindObjectOfType<AudioManager>().Play("GameOver");
+            GameOver();
         }
     }
 
@@ -428,5 +426,13 @@ public class GameController : MonoBehaviour
     public void RemoveUpgrade(GameObject upgradeGO)
     {
         activeUpgrades.Remove(upgradeGO);
+    }
+
+    public void GameOver()
+    {
+        FindObjectOfType<AudioManager>().StopPlaying("GameBGM");
+        FindObjectOfType<AudioManager>().Play("GameOver");
+        Time.timeScale = 0f;
+        buttonScript.gameOver.SetActive(true);
     }
 }
