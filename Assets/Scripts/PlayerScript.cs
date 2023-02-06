@@ -31,11 +31,6 @@ public class PlayerScript : MonoBehaviour
     //gives player cooldown so they dont take damage continuously
     private float damageTimer = 0;
 
-    //public GameObject target;
-    //public GameObject arrowPointer;
-
-    //Renderer rd;
-
     // Start is called before the first frame update
     public void Intialize(Camera mainCamera, GameController gameController)
     {
@@ -43,11 +38,25 @@ public class PlayerScript : MonoBehaviour
         this.mainCamera = mainCamera;
 
         this.gameController = gameController;
-    }
 
-    private void Start()
-    {
-        //rd = GetComponent<Renderer>();
+        if (PlayerPrefs.GetString("Player") == "P1")
+        {
+            playerSpeed = 5f;
+            dashDistance = 1f;
+            dashCooldown = 0.3f;
+        }
+        else if (PlayerPrefs.GetString("Player") == "P2")
+        {
+            playerSpeed = 10f;
+            dashDistance = 0.3f;
+            dashCooldown = 1f;
+        }
+        else if (PlayerPrefs.GetString("Player") == "P3")
+        {
+            playerSpeed = 3f;
+            dashDistance = 3f;
+            dashCooldown = 2f;
+        }
     }
 
     // Update is called once per frame
@@ -135,6 +144,19 @@ public class PlayerScript : MonoBehaviour
                         damageTimer = damageCooldown;
                     }
 
+                }
+
+                if (hit.collider.GetComponent<DebuffScript>() != null)
+                {
+                    //handle upgrades here
+                    DebuffScript debuffScript = hit.collider.GetComponent<DebuffScript>();
+
+                    //add upgrade to player
+                    giveDebuff(debuffScript);
+
+                    debuffScript.DestroyDebuff();
+                    gameController.circlesDestroyed += 1;
+                    damageTimer = damageCooldown;
                 }
             }
 
@@ -236,6 +258,22 @@ public class PlayerScript : MonoBehaviour
         {
             gameController.PoposedColor = Color.green;
             timeMult *= targetUpgrade.thisUpgradeValue;
+        }
+    }
+
+    public void giveDebuff(DebuffScript targetDebuff)
+    {
+        if (targetDebuff.thisDebuffType == DebuffType.SPEED)
+        {
+            playerSpeed -= targetDebuff.thisDebuffValue;
+        }
+        else if(targetDebuff.thisDebuffType == DebuffType.LINE)
+        {
+            dashDistance -= targetDebuff.thisDebuffValue;
+        }
+        else if (targetDebuff.thisDebuffType == DebuffType.DEF)
+        {
+            defMult /= targetDebuff.thisDebuffValue;
         }
     }
 }

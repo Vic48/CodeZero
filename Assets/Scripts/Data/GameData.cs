@@ -7,6 +7,7 @@ public class GameData
     private List<Level> levelList;
     private List<Upgrade> upgradeList;
     private List<Event> eventList;
+    private List<Debuff> debuffList;
 
     public List<Level> GetLevelList()
     {
@@ -41,5 +42,15 @@ public class GameData
     public void SetEventList(List<Event> aList)
     {
         eventList = aList;
+    }
+
+    public List<Debuff> GetDebuffList()
+    {
+        return debuffList;
+    }
+
+    public void SetDebuffList(List<Debuff> aList)
+    {
+        debuffList = aList;
     }
 }

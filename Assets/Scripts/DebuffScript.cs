@@ -2,62 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour
+public class DebuffScript : MonoBehaviour
 {
+    // put details of upgrades inside
     private GameController gameController;
 
-    //enemy life
+    //upgrade life
     private float lifetime;
 
     //increase or decrease timer
-    private float timerAdd;
     private float timerDmg;
 
-    private float enemySize;
-    private const float moveInterval = 1f; //interval between each direction change
-    private float moveTimer = moveInterval; //movement timer
-    private Vector2 moveDir = new Vector2(); //direction
+    //add speed and initialize in GameController
+    private float debuffSpeed;
+    private float debuffTime;
 
-    //add enemySpeed and initialize in GameController
-    private float enemySpeed;
+    private float debuffSize;
 
-    //timer for enemy to change direction
+    //timer for upgrade to change direction
     private float timeLeft;
     private Vector2 direction;
-    //public float addTime = 2f; //add back time to timer
+    public float addTime = 2f; //add back time to timer
 
     public Rigidbody2D rb;
     public GameObject Player;
-
-    // animation related
-    public Animator anim;
 
     private Camera cam;
     private Vector2 screenBoundary;
     private float screenWidth;
     private float screenHeight;
 
-    // Start is called before the first frame update
+    private const float moveInterval = 1f; //interval between each direction change
+    private float moveTimer = moveInterval; //movement timer
+    private Vector2 moveDir = new Vector2(); //direction
+
+    public DebuffType thisDebuffType;
+    public Color RarityColor = new Color(1, 1, 1, 1);
+    public DebuffRarity thisDebuffRarity;
+    public float thisDebuffValue;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-
+        Player = GameObject.FindGameObjectWithTag("Player");
         cam = Camera.main;
         screenBoundary = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.transform.position.z));
         screenWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
         screenHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
+        //checkUpgradeRarity();
     }
 
-    // Update is called once per frame
     void Update()
     {
         lifetime -= Time.deltaTime;
         timeLeft -= Time.deltaTime;
 
+        //GetComponent<SpriteRenderer>().color = RarityColor;
+
+
         if (lifetime <= 0)
         {
-            DeadEnemy();
+            DestroyDebuff();
         }
 
         if (timeLeft <= 0)
@@ -66,6 +71,7 @@ public class EnemyScript : MonoBehaviour
 
             MoveUpdate(time);
         }
+
     }
 
     private void LateUpdate()
@@ -112,37 +118,38 @@ public class EnemyScript : MonoBehaviour
         this.transform.Translate(moveVector);
     }
 
+    public void checkUpgradeRarity()
+    {
+        if (thisDebuffRarity == DebuffRarity.COMMON)
+        {
+            RarityColor = Color.blue;
+        }
+        else
+        {
+            RarityColor = Color.yellow;
+        }
+    }
+
     public void PlayerDebuff()
     {
         PlayerScript playerscript = Player.GetComponent<PlayerScript>();
     }
 
-    public void Initialize(GameController gameController, float timerAdd, float timerDmg, float lifetime, float enemySize, float enemySpeed)
+    public void Initialize(GameController gameController, float timerDmg, float lifetime, float debuffSpeed, float debuffSize)
     {
         this.gameController = gameController;
 
-        this.timerAdd = timerAdd;
         this.timerDmg = timerDmg;
         this.lifetime = lifetime;
 
-        this.enemySize = enemySize;
-        this.enemySpeed = enemySpeed;
+        this.debuffSpeed = debuffSpeed;
+        this.debuffSize = debuffSize;
     }
-
-    public void DeadEnemy()
+    public void DestroyDebuff()
     {
-        anim.SetBool("IsDead", true);
+        gameController.RemoveDebuff(this.gameObject);
+
+        Destroy(this.gameObject);
     }
 
-    public void DestroyEnemy()
-    {
-        gameController.TakeAwayEnemy(this.gameObject);
-        gameController.RemoveEnemy(this.gameObject);
-
-        //Destroy(this.gameObject);
-    }
-
-    public float GetTimerAdd() => timerAdd;
-    public float GetTimerDmg() => timerDmg;
-    public float GetEnemySize() => enemySize;
 }
