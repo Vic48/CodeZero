@@ -16,18 +16,18 @@ public class LevelControl : MonoBehaviour
     public void levelOne()
     {
         PlayerPrefs.SetString("levelId", "1");
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void levelTwo()
     {
         PlayerPrefs.SetString("levelId", "2");
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void levelThree()
     {
         PlayerPrefs.SetString("levelId", "3");
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Level 1");
     }
 }
