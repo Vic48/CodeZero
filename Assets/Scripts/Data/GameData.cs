@@ -6,6 +6,7 @@ public class GameData
 {
     private List<Level> levelList;
     private List<Upgrade> upgradeList;
+    private List<Event> eventList;
 
     public List<Level> GetLevelList()
     {
@@ -30,5 +31,15 @@ public class GameData
     public void SetUpgradeList(List<Upgrade> aList)
     {
         upgradeList = aList;
+    }
+
+    public List<Event> GetEventList()
+    {
+        return eventList;
+    }
+
+    public void SetEventList(List<Event> aList)
+    {
+        eventList = aList;
     }
 }
