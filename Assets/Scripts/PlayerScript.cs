@@ -59,6 +59,7 @@ public class PlayerScript : MonoBehaviour
 
         Vector3 moveDir = new Vector3(moveX, moveY, 0);
         this.transform.position += moveDir * playerSpeed * Time.deltaTime;
+        //this.GetComponent<Rigidbody2D>().MovePosition(this.transform.position + moveDir * playerSpeed * Time.deltaTime);
 
         //dash
         if (dashTimer > 0)

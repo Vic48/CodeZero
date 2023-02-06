@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour
     public float surviveTimer;
     public Text timesurviveText;
 
-    private GameObject player;
+    public GameObject player;
     public Buttons buttonScript;
 
     private List<GameObject> activeEnemyList = new List<GameObject>();
@@ -157,7 +157,7 @@ public class GameController : MonoBehaviour
         viewportOne = mainCamera.ViewportToWorldPoint(Vector2.one);
 
         //spawns player
-        player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
+        //player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
         player.GetComponent<PlayerScript>().Intialize(mainCamera, this);
 
         levelId = PlayerPrefs.GetString("levelId");

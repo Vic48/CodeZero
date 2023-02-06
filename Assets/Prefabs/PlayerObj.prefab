@@ -265,6 +265,8 @@ MonoBehaviour:
   dashDistance: 1
   dashCooldown: 0.3
   damageCooldown: 0.5
+  defMult: 1
+  timeMult: 1
   dashCircle: {fileID: 2514957758744252657}
   dashLine: {fileID: 2514957757904285041}
 --- !u!58 &2514957758329961634
@@ -548,7 +550,7 @@ SpriteRenderer:
   m_Size: {x: 4.67, y: 4.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!60 &7953149149399866284
