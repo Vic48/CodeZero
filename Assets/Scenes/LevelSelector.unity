@@ -675,7 +675,7 @@ MonoBehaviour:
 
     Dash: 3
 
-    Cooldown: 2'
+    Cooldown: 0.7'
 --- !u!222 &295135299
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1599,9 +1599,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Speed: 10
 
-    Dash: 0.3
+    Dash: 0.5
 
-    Cooldown: 1'
+    Cooldown: 0.1'
 --- !u!222 &1498587851
 CanvasRenderer:
   m_ObjectHideFlags: 0

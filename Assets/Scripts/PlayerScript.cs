@@ -48,14 +48,14 @@ public class PlayerScript : MonoBehaviour
         else if (PlayerPrefs.GetString("Player") == "P2")
         {
             playerSpeed = 10f;
-            dashDistance = 0.3f;
-            dashCooldown = 1f;
+            dashDistance = 0.5f;
+            dashCooldown = 0.1f;
         }
         else if (PlayerPrefs.GetString("Player") == "P3")
         {
             playerSpeed = 3f;
             dashDistance = 3f;
-            dashCooldown = 2f;
+            dashCooldown = 0.7f;
         }
     }
 
