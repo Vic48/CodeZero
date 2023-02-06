@@ -7,10 +7,36 @@ using UnityEngine.UI;
 public class LevelControl : MonoBehaviour
 {
     public GameObject levelSelection;
+    public GameObject playerSelection;
 
     private void Start()
     {
+        playerSelection.SetActive(true);
+        levelSelection.SetActive(false);
+    }
+
+    public void LevelSelect()
+    {
+        playerSelection.SetActive(false);
         levelSelection.SetActive(true);
+    }
+
+    public void player1()
+    {
+        LevelSelect();
+        PlayerPrefs.SetString("Player", "P1");
+    }
+
+    public void player2()
+    {
+        LevelSelect();
+        PlayerPrefs.SetString("Player", "P2");
+    }
+
+    public void player3()
+    {
+        LevelSelect();
+        PlayerPrefs.SetString("Player", "P3");
     }
 
     public void levelOne()

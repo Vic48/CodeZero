@@ -71,5 +71,15 @@ public class DataManager : MonoBehaviour
             eventList.Add(new Event(refEvent.id, refEvent.name, refEvent.appearChance));
         }
         gameData.SetEventList(eventList);
+
+        List<Debuff> debuffList = new List<Debuff>();
+        foreach (RefDebuff refDebuff in serverData.RefDebuff)
+        {
+            // rarity convert strings to enum
+            DebuffRarity rarity = (DebuffRarity)System.Enum.Parse(typeof(DebuffRarity), refDebuff.rarity);
+            DebuffType debuffType = (DebuffType)System.Enum.Parse(typeof(DebuffType), refDebuff.debuffType);
+            debuffList.Add(new Debuff(refDebuff.id, refDebuff.name, refDebuff.shortName, refDebuff.appearChance, rarity, debuffType, refDebuff.debuffValue, refDebuff.debuffTime));
+        }
+        gameData.SetDebuffList(debuffList);
     }
 }

@@ -6537,9 +6537,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 721621151}
   playerObj: {fileID: 2514957758329961689, guid: d9d8cb8733062f3448ae96ea9a05c472, type: 3}
+  player2Obj: {fileID: 3720317898588373672, guid: c98ce9d42694ece4f9d06f39558c305e, type: 3}
+  player3Obj: {fileID: 4524000625156336621, guid: 2f4e1b65a6b926d429aaa663b5dc6c87, type: 3}
   enemyObj: {fileID: 1201388449226727847, guid: 7f7d32fe6a4f82b47b4375e827dcdfb5, type: 3}
   upgradeObj: {fileID: 2001241994236858063, guid: 7cfc82b78bb04a345a24adba544886af, type: 3}
   debuffObj: {fileID: 4689804245454924663, guid: 8787fa5a243fb124eade6c2ba36f39be, type: 3}
+  debuffObj: {fileID: 0}
   timerMax: 60
   timerAdd: 5
   timerDmg: 1

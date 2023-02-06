@@ -9,8 +9,11 @@ public class GameController : MonoBehaviour
     [Header("Objects")]
     public Camera mainCamera;
     public Object playerObj;
+    public Object player2Obj;
+    public Object player3Obj;
     public Object enemyObj;
     public Object upgradeObj;
+    public Object debuffObj;
 
     [Header("Game")]
     public float timerMax;
@@ -34,6 +37,19 @@ public class GameController : MonoBehaviour
     public float upgradeSizeInterval;
 
     private float upgradeSpawnTimer = 0;
+
+    [Header("Debuff")]
+    public float debuffInterval;
+    private float debuffSpawnTimer = 0;
+    public int debuffCount;
+    public int debuffSpawnMin;
+    public int debuffSpawnMax;
+    public float debuffLifetime = 5f; //DO NOT CHANGE
+    public float debuffSizeMin;
+    public int debuffSizeMaxInterval;
+    public float debuffSizeInterval;
+    public float debuffValue;
+    private float debuffTimer;
 
     [Header("Enemy")]
     public float spawnInterval;
@@ -78,6 +94,9 @@ public class GameController : MonoBehaviour
 
     public List<GameObject> activeUpgrades = new List<GameObject>();
     private int upgradeIndex = 0;
+
+    public List<GameObject> activeDebuffs = new List<GameObject>();
+    private int debuffIndex = 0;
 
     //-------------------   Object Pooling -----------------
     private List<GameObject> enemyObjectPool = new List<GameObject>();
@@ -156,8 +175,23 @@ public class GameController : MonoBehaviour
         viewportZero = mainCamera.ViewportToWorldPoint(Vector2.zero);
         viewportOne = mainCamera.ViewportToWorldPoint(Vector2.one);
 
-        //spawns player
-        //player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
+        //player selection
+        if (PlayerPrefs.GetString("Player") == "P1")
+        {
+            //spawns player
+            player = Instantiate(playerObj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
+        }
+        else if (PlayerPrefs.GetString("Player") == "P2")
+        {
+            //spawns player
+            player = Instantiate(player2Obj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
+        }
+        else if (PlayerPrefs.GetString("Player") == "P3")
+        {
+            //spawns player
+            player = Instantiate(player3Obj, Vector2.zero, Quaternion.identity, this.transform) as GameObject;
+        }
+
         player.GetComponent<PlayerScript>().Intialize(mainCamera, this);
 
         levelId = PlayerPrefs.GetString("levelId");
@@ -213,7 +247,22 @@ public class GameController : MonoBehaviour
         timerMax = currLevel.GetMaxTime();
         currTimer = timerMax;
 
-        
+        //-------------------   DEBUFF -----------------
+
+        debuffInterval = currLevel.GetUpgradeInterval();
+        debuffCount = currLevel.GetUpgradeCount();
+        debuffSpawnMin = currLevel.GetSpawnMin();
+        debuffSpawnMax = currLevel.GetSpawnMax();
+        debuffSizeMin = currLevel.GetStartMinSize();
+        debuffSizeMaxInterval = currLevel.GetStartMaxSizeInterval();
+        debuffSizeInterval = currLevel.GetSizeUpValue();
+
+        //Debuff currDebuff = Game.GetGameData().GetDebuffList();
+        //debuffValue = currDebuff.GetDebuffValue();
+        //debuffTimer = currDebuff.GetDebuffTime();
+
+
+
     }
 
     // Update is called once per frame
@@ -358,6 +407,67 @@ public class GameController : MonoBehaviour
             spawnTimer = 0;
         }
 
+        //-------------------   DEBUFFS -----------------
+
+        debuffSpawnTimer += Time.deltaTime;
+
+        if (activeDebuffs.Count < debuffCount)
+        {
+            //spawn debuff
+            debuffIndex++;
+
+            Vector2 randomPos = GetRandomOnScreenPos();
+
+            GameObject debuff = Instantiate(debuffObj, randomPos, Quaternion.identity, this.transform) as GameObject;
+
+
+            digit = 0;
+            foreach (Debuff a in Game.GetGameData().GetDebuffList())
+            {
+                digit += a.GetAppearChance();
+            }
+
+            bool loopCheck = true;
+            int generatedNum = Random.Range(0, digit + 1);
+            int loopNum = 0;
+            while (loopCheck)
+            {
+                generatedNum -= Game.GetGameData().GetDebuffList()[loopNum].GetAppearChance();
+                if (generatedNum <= 0)
+                {
+                    loopCheck = false;
+                }
+                else
+                {
+                    loopNum += 1;
+                }
+            }
+
+            debuff.GetComponentInChildren<TextMesh>().text = Game.GetGameData().GetDebuffList()[loopNum].GetShortName();
+
+            //each upgrade has diff number
+            debuff.name = "Debuff_" + Game.GetGameData().GetDebuffList()[loopNum].GetName() + "_" + debuffIndex;
+            debuff.GetComponent<DebuffScript>().thisDebuffRarity = Game.GetGameData().GetDebuffList()[loopNum].GetDebuffRarity();
+            debuff.GetComponent<DebuffScript>().thisDebuffType = Game.GetGameData().GetDebuffList()[loopNum].GetDebuffType();
+            debuff.GetComponent<DebuffScript>().thisDebuffValue = Game.GetGameData().GetDebuffList()[loopNum].GetDebuffValue();
+
+            int randSize = Random.Range(0, debuffSizeMaxInterval + 1);
+
+            float debuffSize = debuffSizeMin + ((float)randSize * debuffSizeInterval);
+            debuff.transform.localScale = new Vector2(debuffSize, debuffSize);
+
+            float debuffSpeed = enemyMinSpeed;
+
+            //initializing data in UpgradeScript
+            debuff.GetComponent<DebuffScript>().Initialize(this, timerDmg, debuffLifetime, debuffSize, debuffSpeed);
+
+            //add active upgrade to list
+            activeDebuffs.Add(debuff);
+
+            //reset timer
+            spawnTimer = 0;
+        }
+
         UpdateTimerBar();
 
         //set the color back to initial color
@@ -432,6 +542,11 @@ public class GameController : MonoBehaviour
     public void RemoveUpgrade(GameObject upgradeGO)
     {
         activeUpgrades.Remove(upgradeGO);
+    }
+
+    public void RemoveDebuff(GameObject debuffGO)
+    {
+        activeDebuffs.Remove(debuffGO);
     }
 
     public void GameOver()
