@@ -156,7 +156,7 @@ public class PlayerScript : MonoBehaviour
                     giveDebuff(debuffScript);
 
                     debuffScript.DestroyDebuff();
-                    gameController.circlesDestroyed += 1;
+                    //gameController.circlesDestroyed += 1;
                     damageTimer = damageCooldown;
                 }
             }
@@ -273,6 +273,7 @@ public class PlayerScript : MonoBehaviour
 
     public void giveDebuff(DebuffScript targetDebuff)
     {
+        //Debug.Log(targetDebuff.thisDebuffType);
         if (targetDebuff.thisDebuffType == DebuffType.SPEED)
         {
             playerSpeed -= targetDebuff.thisDebuffValue;
@@ -280,6 +281,7 @@ public class PlayerScript : MonoBehaviour
         else if(targetDebuff.thisDebuffType == DebuffType.LINE)
         {
             dashDistance -= targetDebuff.thisDebuffValue;
+            Debug.Log(dashDistance);
         }
         else if (targetDebuff.thisDebuffType == DebuffType.DEF)
         {

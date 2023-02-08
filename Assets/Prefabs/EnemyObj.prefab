@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  Player: {fileID: 0}
   anim: {fileID: 222750360621073136}
 --- !u!95 &222750360621073136
 Animator:

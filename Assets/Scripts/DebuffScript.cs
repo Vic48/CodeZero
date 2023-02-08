@@ -49,7 +49,7 @@ public class DebuffScript : MonoBehaviour
         screenBoundary = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.transform.position.z));
         screenWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x;
         screenHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
-        //checkUpgradeRarity();
+        checkDebuffRarity();
     }
 
     void Update()
@@ -57,7 +57,7 @@ public class DebuffScript : MonoBehaviour
         lifetime -= Time.deltaTime;
         timeLeft -= Time.deltaTime;
 
-        //GetComponent<SpriteRenderer>().color = RarityColor;
+        GetComponent<SpriteRenderer>().color = RarityColor;
 
 
         if (lifetime <= 0)
@@ -118,15 +118,15 @@ public class DebuffScript : MonoBehaviour
         this.transform.Translate(moveVector);
     }
 
-    public void checkUpgradeRarity()
+    public void checkDebuffRarity()
     {
         if (thisDebuffRarity == DebuffRarity.COMMON)
         {
-            RarityColor = Color.blue;
+            RarityColor = Color.cyan;
         }
         else
         {
-            RarityColor = Color.yellow;
+            RarityColor = Color.grey;
         }
     }
 
