@@ -6543,6 +6543,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1808494105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808494107}
+  - component: {fileID: 1808494106}
+  m_Layer: 0
+  m_Name: TerrainManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1808494106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808494105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9fd5586a2681e4182e1e52a8e3c2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainPrefab:
+  - {fileID: 6511942348276911966, guid: f8898c68be334d048900746b86c0a134, type: 3}
+  - {fileID: 665166646461690996, guid: 8baba47ae4bce9244b34e702a17542c1, type: 3}
+  - {fileID: 4164643525683120467, guid: e1f6aa15805f52d4e8dc502a173d6736, type: 3}
+  - {fileID: 9109943086557227331, guid: 5d2f42f8edfa9364a85552b4f2ae782b, type: 3}
+  nextSpawn: 5
+  minTrans: -7
+  maxTrans: 7
+--- !u!4 &1808494107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808494105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1810029260
 GameObject:
   m_ObjectHideFlags: 0
