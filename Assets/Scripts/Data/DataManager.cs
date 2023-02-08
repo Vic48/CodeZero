@@ -65,13 +65,6 @@ public class DataManager : MonoBehaviour
         }
         gameData.SetUpgradeList(upgradeList);
 
-        List<Event> eventList = new List<Event>();
-        foreach (RefEvent refEvent in serverData.RefEvent)
-        {
-            eventList.Add(new Event(refEvent.id, refEvent.name, refEvent.appearChance));
-        }
-        gameData.SetEventList(eventList);
-
         List<Debuff> debuffList = new List<Debuff>();
         foreach (RefDebuff refDebuff in serverData.RefDebuff)
         {

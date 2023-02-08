@@ -7,7 +7,6 @@ public class ServerData
 {
     public List<RefLevel> RefLevel;
     public List<RefUpgrade> RefUpgrade;
-    public List<RefEvent> RefEvent;
     public List<RefDebuff> RefDebuff;
 }
 
@@ -44,14 +43,6 @@ public class RefUpgrade
     public int appearChance;
     public string upgradeType;
     public float upgradeValue;
-}
-
-[System.Serializable]
-public class RefEvent
-{
-    public string id;
-    public string name;
-    public int appearChance;
 }
 
 [System.Serializable]
