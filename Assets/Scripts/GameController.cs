@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
     //public GameObject gameOver; //game over panel
     //public GameObject pauseMenu;
     public Text levelText;
-    public int levelNum;
+    public string levelNum;
     public float surviveTimer;
     public Text timesurviveText;
 
@@ -209,7 +209,9 @@ public class GameController : MonoBehaviour
 
         isGameStart = true;
 
-        levelText.text = levelNum.ToString("Level: "+ currLevel.GetLevelName());
+        levelNum = currLevel.GetLevelName();
+
+        levelText.text = levelNum;
 
 
         enemObjectPool();
@@ -446,6 +448,7 @@ public class GameController : MonoBehaviour
             debuff.GetComponentInChildren<TextMesh>().text = Game.GetGameData().GetDebuffList()[loopNum].GetShortName();
 
             //each upgrade has diff number
+            //Debug.Log("loopNum " + loopNum + "/" + Game.GetGameData().GetDebuffList().Count);
             debuff.name = "Debuff_" + Game.GetGameData().GetDebuffList()[loopNum].GetName() + "_" + debuffIndex;
             debuff.GetComponent<DebuffScript>().thisDebuffRarity = Game.GetGameData().GetDebuffList()[loopNum].GetDebuffRarity();
             debuff.GetComponent<DebuffScript>().thisDebuffType = Game.GetGameData().GetDebuffList()[loopNum].GetDebuffType();

@@ -48,13 +48,13 @@ public class PlayerScript : MonoBehaviour
         else if (PlayerPrefs.GetString("Player") == "P2")
         {
             playerSpeed = 10f;
-            dashDistance = 0.5f;
+            dashDistance = 0.7f;
             dashCooldown = 0.1f;
         }
         else if (PlayerPrefs.GetString("Player") == "P3")
         {
             playerSpeed = 3f;
-            dashDistance = 3f;
+            dashDistance = 1.5f;
             dashCooldown = 0.7f;
         }
     }
@@ -236,6 +236,15 @@ public class PlayerScript : MonoBehaviour
         {
             UpgradeScript upgradeScript = collision.GetComponent<UpgradeScript>();
             gameController.MinusTimer(upgradeScript.GetTimerDmg());
+
+            damageTimer = damageCooldown;
+        }
+
+        //if timer = 0 and touching upgrade
+        if (damageTimer <= 0 && collision.GetComponent<DebuffScript>() != null)
+        {
+            DebuffScript debuffScript = collision.GetComponent<DebuffScript>();
+            gameController.MinusTimer(debuffScript.GetTimerDmg());
 
             damageTimer = damageCooldown;
         }

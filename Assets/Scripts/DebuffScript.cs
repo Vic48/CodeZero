@@ -15,7 +15,7 @@ public class DebuffScript : MonoBehaviour
 
     //add speed and initialize in GameController
     private float debuffSpeed;
-    private float debuffTime;
+    //private float debuffTime;
 
     private float debuffSize;
 
@@ -137,6 +137,7 @@ public class DebuffScript : MonoBehaviour
 
     public void Initialize(GameController gameController, float timerDmg, float lifetime, float debuffSpeed, float debuffSize)
     {
+        //Debug.Log("Debuff Initialize");
         this.gameController = gameController;
 
         this.timerDmg = timerDmg;
@@ -147,9 +148,13 @@ public class DebuffScript : MonoBehaviour
     }
     public void DestroyDebuff()
     {
+        //Debug.Log("gameController " + (gameController == null));
         gameController.RemoveDebuff(this.gameObject);
 
         Destroy(this.gameObject);
     }
+
+    public float GetTimerDmg() => timerDmg;
+    public float GetDebuffSize() => debuffSize;
 
 }

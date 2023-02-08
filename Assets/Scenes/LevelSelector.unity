@@ -673,7 +673,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Speed: 3
 
-    Dash: 3
+    Dash: 1.5
 
     Cooldown: 0.7'
 --- !u!222 &295135299
@@ -1599,7 +1599,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Speed: 10
 
-    Dash: 0.5
+    Dash: 0.7
 
     Cooldown: 0.1'
 --- !u!222 &1498587851

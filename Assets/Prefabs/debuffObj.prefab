@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   addTime: 0
-  rb: {fileID: 0}
+  rb: {fileID: 570715156263471624}
   Player: {fileID: 0}
   thisDebuffType: 0
   RarityColor: {r: 1, g: 1, b: 1, a: 1}
