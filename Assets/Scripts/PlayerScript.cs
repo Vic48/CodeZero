@@ -176,31 +176,6 @@ public class PlayerScript : MonoBehaviour
         }
         UpdateDashDisplay();
 
-        //tracking player
-        //if (rd.isVisible == false)
-        //{
-        //    if(arrowPointer.activeSelf == false)
-        //    {
-        //        arrowPointer.SetActive(true);
-        //    }
-
-        //    Vector2 direction = target.transform.position - transform.position;
-
-        //    RaycastHit2D ray = Physics2D.Raycast(transform.position, direction);
-
-        //    if (ray.collider != null)
-        //    {
-        //        arrowPointer.transform.position = ray.point;
-        //    }
-        //}
-        //else
-        //{
-        //    if (arrowPointer.activeSelf == true)
-        //    {
-        //        arrowPointer.SetActive(false);
-        //    }
-        //}
-
     }
 
     private void UpdateDashDisplay()
