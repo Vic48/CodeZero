@@ -6,7 +6,6 @@ public class GrassTerrain : MonoBehaviour
 {
     public void Grass()
     {
-        PlayerScript.playerSpeed += 3;
-        PlayerScript.dashDistance += 0.5f;
+        PlayerScript.playerSpeed = 2f;
     }
 }

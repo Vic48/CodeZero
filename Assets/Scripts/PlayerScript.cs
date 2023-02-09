@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     //default speed of player
     public static float playerSpeed = 5f;
     public static float dashDistance = 1f; //enemies with diameter lesser than 1 will get destroyed
-    public static float dashCooldown = 0.3f; //DO NOT CHANGE
+    public float dashCooldown = 0.3f; //DO NOT CHANGE
     public float damageCooldown = 0.5f; //DO NOT CHANGE
     public float defMult = 1f;
     public float timeMult = 1f;

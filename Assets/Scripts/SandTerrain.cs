@@ -7,7 +7,6 @@ public class SandTerrain : MonoBehaviour
 
     public void Sand()
     {
-        PlayerScript.playerSpeed -= 3;
-        PlayerScript.dashDistance -= 0.5f;
+        PlayerScript.dashDistance = 1.5f;
     }
 }
