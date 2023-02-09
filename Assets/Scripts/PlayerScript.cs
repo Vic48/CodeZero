@@ -9,9 +9,9 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Variables")]
     //default speed of player
-    public float playerSpeed = 5f;
-    public float dashDistance = 1f; //enemies with diameter lesser than 1 will get destroyed
-    public float dashCooldown = 0.3f; //DO NOT CHANGE
+    public static float playerSpeed = 5f;
+    public static float dashDistance = 1f; //enemies with diameter lesser than 1 will get destroyed
+    public static float dashCooldown = 0.3f; //DO NOT CHANGE
     public float damageCooldown = 0.5f; //DO NOT CHANGE
     public float defMult = 1f;
     public float timeMult = 1f;
@@ -145,6 +145,30 @@ public class PlayerScript : MonoBehaviour
                         damageTimer = damageCooldown;
                     }
 
+                }
+
+                //if hit sand
+                if (hit.collider.GetComponent<SandTerrain>() != null)
+                {
+                    //destroy
+                    SandTerrain sand = hit.collider.GetComponent<SandTerrain>();
+                    sand.Sand();
+                }
+
+                //if hit grass
+                if (hit.collider.GetComponent<GrassTerrain>() != null)
+                {
+                    //destroy
+                    GrassTerrain grass = hit.collider.GetComponent<GrassTerrain>();
+                    grass.Grass();
+                }
+
+                //if hit water
+                if (hit.collider.GetComponent<WaterTerrain>() != null)
+                {
+                    //destroy
+                    WaterTerrain water = hit.collider.GetComponent<WaterTerrain>();
+                    water.Water();
                 }
 
                 if (hit.collider.GetComponent<DebuffScript>() != null)

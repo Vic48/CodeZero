@@ -6576,10 +6576,9 @@ MonoBehaviour:
   - {fileID: 6511942348276911966, guid: f8898c68be334d048900746b86c0a134, type: 3}
   - {fileID: 665166646461690996, guid: 8baba47ae4bce9244b34e702a17542c1, type: 3}
   - {fileID: 4164643525683120467, guid: e1f6aa15805f52d4e8dc502a173d6736, type: 3}
-  - {fileID: 9109943086557227331, guid: 5d2f42f8edfa9364a85552b4f2ae782b, type: 3}
   nextSpawn: 5
-  minTrans: -7
-  maxTrans: 7
+  minTrans: -8
+  maxTrans: 8
 --- !u!4 &1808494107
 Transform:
   m_ObjectHideFlags: 0

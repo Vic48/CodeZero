@@ -6,7 +6,7 @@ public class TerrainManager : MonoBehaviour
 {
     [SerializeField] GameObject[] terrainPrefab;
 
-    [SerializeField] float nextSpawn = 4f;
+    [SerializeField] float nextSpawn = 0.5f;
 
     [SerializeField] float minTrans;
 
@@ -26,7 +26,7 @@ public class TerrainManager : MonoBehaviour
 
             GameObject gameObject = Instantiate(terrainPrefab[Random.Range(0, terrainPrefab.Length)], position, Quaternion.identity);
             yield return new WaitForSeconds(nextSpawn);
-            Destroy(gameObject, 5f);
+            Destroy(gameObject, 2f);
         }
     }
 }
