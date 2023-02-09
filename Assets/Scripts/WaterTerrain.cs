@@ -6,7 +6,7 @@ public class WaterTerrain : MonoBehaviour
 {
     public void Water()
     {
-        PlayerScript.playerSpeed -= 4.5f;
+        PlayerScript.playerSpeed -= 2.5f;
         PlayerScript.dashDistance = 0f;
     }
 }

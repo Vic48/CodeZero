@@ -280,7 +280,7 @@ public class PlayerScript : MonoBehaviour
         else if(targetDebuff.thisDebuffType == DebuffType.LINE)
         {
             dashDistance -= targetDebuff.thisDebuffValue;
-            Debug.Log(dashDistance);
+            //Debug.Log(dashDistance);
         }
         else if (targetDebuff.thisDebuffType == DebuffType.DEF)
         {
