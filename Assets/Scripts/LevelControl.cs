@@ -48,12 +48,12 @@ public class LevelControl : MonoBehaviour
     public void levelTwo()
     {
         PlayerPrefs.SetString("levelId", "2");
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Level 2");
     }
 
     public void levelThree()
     {
         PlayerPrefs.SetString("levelId", "3");
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Level 3");
     }
 }
