@@ -1,5 +1,8 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking; // allows download from local or online servers
 
@@ -7,11 +10,19 @@ public class DataManager : MonoBehaviour
 {
     public string serverURL = "http://localhost/UXG2176/GetJson.php";
 
-    /*public ServerData serverData;*/
+    ///*public ServerData serverData;*/
 
     public void GetData(System.Action onComplete)
     {
+        UnityEngine.Debug.Log("GetData");
         StartCoroutine(WaitForRequest(serverURL, onComplete));
+
+        //read json from Assets/uxg2176s23.json
+        string jsonString = File.ReadAllText("Assets/uxg2176s23.json");
+        //process game data from json
+        ProcessGameData(jsonString);
+        //run onComplete
+        onComplete();
     }
 
     // UnityWebRequest to get the data, works with coroutine
@@ -25,7 +36,8 @@ public class DataManager : MonoBehaviour
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
             string jsonString = webRequest.downloadHandler.text;
-            Debug.Log("webRequest Result: " + jsonString);
+            UnityEngine.Debug.Log("webRequest Result: " + jsonString);
+            File.WriteAllText("Assets/uxg2176s23.json", jsonString);
 
             // process data
             /*serverData = JsonUtility.FromJson<ServerData>(jsonString);*/
@@ -36,7 +48,7 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("webRequest Error: " + webRequest.error);
+            UnityEngine.Debug.LogError("webRequest Error: " + webRequest.error);
         }
     }
 
@@ -49,7 +61,7 @@ public class DataManager : MonoBehaviour
         List<Level> levelList = new List<Level>();
         foreach (RefLevel refLevel in serverData.RefLevel)
         {
-            levelList.Add(new Level(refLevel.id, refLevel.levelName,refLevel.maxTime, refLevel.spawnInterval, refLevel.spawnMin, refLevel.spawnMax, refLevel.upgradeInterval,
+            levelList.Add(new Level(refLevel.id, refLevel.levelName, refLevel.maxTime, refLevel.spawnInterval, refLevel.spawnMin, refLevel.spawnMax, refLevel.upgradeInterval,
                 refLevel.upgradeCount, refLevel.startMinSize, refLevel.minSizeUpFrequency, refLevel.sizeUpValue, refLevel.startMaxSizeInterval, refLevel.maxSizeUpFrequency,
                 refLevel.startMinSpeed, refLevel.minSpeedUpFrequency, refLevel.startMaxSpeed, refLevel.maxSpeedUpFrequency, refLevel.speedUpValue));
         }

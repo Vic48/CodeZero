@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour
 {
-    public GameObject howtoplayPanel;
+    //public GameObject howtoplayPanel;
 
     public bool pausedGame;
     public GameObject pauseMenu; 
@@ -15,7 +15,7 @@ public class Buttons : MonoBehaviour
     void Start()
     {
         FindObjectOfType<AudioManager>().Play("MenuBGM");
-        howtoplayPanel.SetActive(false);
+        //howtoplayPanel.SetActive(false);
         pauseMenu.SetActive(false);
         gameOver.SetActive(false);
         optionsPanel.SetActive(false);
@@ -80,10 +80,10 @@ public class Buttons : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("MenuBGM");
     }
 
-    public void HowToPlay()
-    {
-        howtoplayPanel.SetActive(true);
-    }
+    //public void HowToPlay()
+    //{
+    //    howtoplayPanel.SetActive(true);
+    //}
 
     public void Options()
     {
